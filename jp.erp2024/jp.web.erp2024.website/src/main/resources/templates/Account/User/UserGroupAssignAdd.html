@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        [(${HTML_HELPER.Hidden(_USERID_, USERID)})]
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>ユーザー组：</td>
+                <td class="form-editor">
+                    <input th:id="${_GROUPID_}" th:name="${_GROUPID_}" class="easyui-combobox" th:data-options="|url:'/Account/User/GetUserUnAssignGroupList?userID=${USERID}',valueField:'${_ID_}',textField:'${_NAME_}',editable:false,required:true|" />
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>失效时间：</td>
+                <td class="form-editor">
+                    <input th:name="${_EXPIREDTIME_}" th:id="${_EXPIREDTIME_}" class="easyui-datetimebox" type="text" value="2099-12-31 00:00:00" />
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">备注：</td>
+                <td class="form-editor">
+                    <textarea th:name="${_REMARK_}" th:id="${_REMARK_}" class="easyui-validatebox" style="width: 300px;" rows="5"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form: $("#form")
+        };
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api('/Account/User/UserGroupAssignAddSave', data, callBack);
+        }
+    </script>
+</th:block>
+</html>

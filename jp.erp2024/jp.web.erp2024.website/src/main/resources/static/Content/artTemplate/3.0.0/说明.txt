@@ -1,0 +1,55 @@
+﻿原生和 简单的区别：
+原生的未定义 defaults.parser;
+简单的指定了 defaults.parser;
+
+简单修改版增加了原生代码:
+{{var hasFuShu=false;}}//原生代码
+{{each list as item}}
+	{{: if(item<0){hasFuShu=true}}}//原生代码
+	<li>{{item}}</li>
+{{/each}}
+{{if hasFuShu}}
+<div>包含负数</div>
+{{/if}}
+
+
+
+辅助方法：
+{{value | filterA:'abcd' | filterB}}
+>>> $helpers.filterB($helpers.filterA(value, 'abcd'))
+
+
+
+
+示例：
+(function($data,$filename
+/**/) {
+'use strict';var $utils=this,$helpers=$utils.$helpers,IsDefault=$data.IsDefault,$string=$utils.$string,$escape=$utils.$escape,Consignee=$data.Consignee,Phone=$data.Phone,AddressOfCountry=$data.AddressOfCountry,AddressOfProvince=$data.AddressOfProvince,AddressOfCity=$data.AddressOfCity,AddressOfDistrict=$data.AddressOfDistrict,AddressOfPostcode=$data.AddressOfPostcode,AddressOfStreet=$data.AddressOfStreet,$out='';$out+='\n            <dl class="address-item ';
+if(IsDefault){
+$out+='active';
+}
+$out+='" data-json=\'';
+$out+=$string($helpers. json( this ));
+$out+='\'>\n                <dt>';
+$out+=$escape(Consignee);
+$out+='</dt>\n                <dd><span>☎</span> ';
+$out+=$escape(Phone);
+$out+='</dd>\n                <dd><span>🌏</span> ';
+$out+=$escape(AddressOfCountry);
+$out+=' ';
+$out+=$escape(AddressOfProvince);
+$out+=' ';
+$out+=$escape(AddressOfCity);
+$out+=' ';
+$out+=$escape(AddressOfDistrict);
+$out+=' (';
+$out+=$escape(AddressOfPostcode);
+$out+=')</dd>\n                <dd><span>🏦</span> ';
+$out+=$escape(AddressOfStreet);
+$out+='</dd>\n                ';
+if(IsDefault){
+$out+='\n                    <dd class="address-default">🚩默认</dd>\n                ';
+}
+$out+='\n            </dl>\n        ';
+return new String($out);
+})

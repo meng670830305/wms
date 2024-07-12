@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: toolstip}" />
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form" class="easyui-form">
+        [(${HTML_HELPER.Hidden(_ID_, MODEL.id)})]
+        <table class="form">
+            <tr style="display: none">
+                <td></td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>所属权限：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_PARENTID_, _PARENTID_)})]
+                </td>
+                <td class="form-label"><sup>*</sup>权限图标：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_ICON_, _ICON_)})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>权限名称：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, MODEL.name, "class=easyui-validatebox", "required=true")})]
+                </td>
+                <td class="form-label"><sup>*</sup>描述：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_DESCRIPTION_, MODEL.description, "class=easyui-validatebox", "required=true")})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">权限地址：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_HREF_, MODEL.href, "class=easyui-validatebox")})]
+                </td>
+
+                <td class="form-label"><sup>*</sup>同级排序：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_SORT_, MODEL.sort, "class=easyui-numberspinner", "min=1", "max=100", "required=true")})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">KEY：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_PERMISSIONKEY_, MODEL.permissionkey, "class=easyui-validatebox")})]
+                </td>
+                <td class="form-label">备注：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_REMARK_, MODEL.remark, "class=easyui-validatebox")})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">是否启用：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.CheckBox(_ISENABLE_, _ISENABLE_, MODEL.isenable, MODEL.isenable==1)})]
+                </td>
+                <td class="form-label">附加到菜单：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.CheckBox(_CANMENU_, _CANMENU_, MODEL.canmenu, MODEL.canmenu==1)})]<span data-tooltip="如果是设置页面上的按钮权限，请不要选中附加到菜单" class="toolstip"></span>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form : $("#form")
+        };
+
+        $('#[(${_ICON_})]').combobox({
+            required: true,
+            url: "/Resources/IconData",
+            width: 200,
+            editable: false,
+            range: false,
+            value: '[(${MODEL.icon})]',
+            valueField: 'value',
+            textField: 'value',
+            formatter: function (v) {
+                return `<span style="width:16px;height:16px;display:inline-block;" class="${v.value}">&nbsp;</span>${v.text}`;
+            },
+            onSelect: function (item) {
+                $('#[(${_ICON_})]').combotree("textbox").closest('.textbox').attr("class", "textbox combo " + item.value);
+            }
+        }).combobox("textbox")
+            .css({ "margin-left": 20, "width": 160, "background": "transparent" })
+            .closest('.textbox')
+            .css({ "background-position-x": 5 })
+        ;
+
+        $('#[(${_PARENTID_})]').combotree({
+            width: 200,
+            required: true,
+            value: '[(${MODEL.parentid})]',
+            enableContextMenu: false,
+            allowParent: true,
+            url: "/Account/Access/GetPermissionTree",
+            onSelect: function (node) {
+                $('#[(${_PARENTID_})]').combotree("textbox").siblings('.__icon').css({ "background": $(node.target).children(':eq(-2)').css('background') });
+            }
+        }).combobox("textbox")
+            .css({ "margin-left": 20, "width": 160, "background": "transparent" })
+            .closest('.textbox')
+            .append($('<span class="__icon"></span>')
+            .css({ "width": 16, "height": 16, "display": "block", "position": "absolute", "top": 6, "left": 5 }))
+        ;
+
+        function save(callback) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            var canMenu = 0;
+            var isEnable = 0;
+            if ($("#[(${_CANMENU_})]").is(":checked")) {
+                canMenu = 1;
+            }
+            if ($("#[(${_ISENABLE_})]").is(":checked")) {
+                isEnable = 1;
+            }
+            data.[(${_CANMENU_})] = canMenu;
+            data.[(${_ISENABLE_})] = isEnable;
+            JQEUI.api('/Account/Access/PermissionEditSave', data, callback);
+        }
+    </script>
+</th:block>
+</html>

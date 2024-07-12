@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>jp.erp2024</groupId>
+    <artifactId>jp_erp2024</artifactId>
+    <version>${system.version}</version>
+
+    <name>jp_erp2024_root</name>
+    <description>ＥＲＰシステム</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>jp.com.helper</module>
+        <module>jp.com.module</module>
+        <module>jp.com.filterexpression</module>
+        <module>jp.db.erp2024.pojo</module>
+        <module>jp.db.erp2024.mapper</module>
+        <module>jp.db.erp2024.datafilter</module>
+        <module>jp.db.erp2024.xml</module>
+        <module>jp.db.erp2024.service</module>
+        <module>jp.web.erp2024.webapi</module>
+        <module>jp.web.erp2024.website</module>
+    </modules>
+
+    <!-- 项目开发者列表 -->
+    <developers>
+        <developer>
+            <id>ō.un.hō</id>
+            <name>オウ　ウンホウ</name>
+            <email>315360007@qq.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Project Leader</role>
+                <role>System Engineer</role>
+                <role>Team Leader</role>
+                <role>Architecter</role>
+                <role>Programer</role>
+                <role>Tester</role>
+                <role>Builter</role>
+            </roles>
+            <organization>株式会社霓虹ソフト</organization>
+            <organizationUrl>https://www.nihonsoft.co.jp/</organizationUrl>
+        </developer>
+    </developers>
+
+    <!-- 描述项目所属的组织 -->
+    <organization>
+        <name>株式会社霓虹ソフト</name>
+        <url>https://www.nihonsoft.co.jp/</url>
+    </organization>
+
+    <!-- 统一管理jar包版本 -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+        <system.version>1.0-SNAPSHOT</system.version>
+        <jp.com.helper.version>1.0-SNAPSHOT</jp.com.helper.version>
+        <jp.com.module.version>1.0-SNAPSHOT</jp.com.module.version>
+        <jp.com.filterexpression.version>1.0-SNAPSHOT</jp.com.filterexpression.version>
+        <jp.db.erp2024.pojo.version>1.0-SNAPSHOT</jp.db.erp2024.pojo.version>
+        <jp.db.erp2024.mapper.version>1.0-SNAPSHOT</jp.db.erp2024.mapper.version>
+        <jp.db.erp2024.xml.version>1.0-SNAPSHOT</jp.db.erp2024.xml.version>
+        <jp.db.erp2024.datafilter.version>1.0-SNAPSHOT</jp.db.erp2024.datafilter.version>
+        <jp.db.erp2024.service.version>1.0-SNAPSHOT</jp.db.erp2024.service.version>
+        <jp.web.erp2024.website.version>1.0-SNAPSHOT</jp.web.erp2024.website.version>
+        <jp.web.erp2024.webapi.version>1.0-SNAPSHOT</jp.web.erp2024.webapi.version>
+        <system.author>オウ ウンホウ</system.author>
+        <spring-boot.version>3.1.5</spring-boot.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+    </properties>
+
+    <!-- 子模块继承之后，子模块不用写版本号 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-undertow</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-jdbc -->
+            <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session-jdbc</artifactId>
+                <version>3.1.3</version>
+            </dependency>
+
+            <!--thymeleaf layout-->
+            <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
+            <dependency>
+                <groupId>nz.net.ultraq.thymeleaf</groupId>
+                <artifactId>thymeleaf-layout-dialect</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity6 -->
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+                <version>3.1.2.RELEASE</version>
+            </dependency>
+
+            <!--thymeleaf extras java8time-->
+            <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time -->
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-java8time</artifactId>
+                <version>3.0.4.RELEASE</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.spt-oss/thymeleaf-extras-minify -->
+            <dependency>
+                <groupId>com.github.spt-oss</groupId>
+                <artifactId>thymeleaf-extras-minify</artifactId>
+                <version>3.0.11.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.6.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.13.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.8.22</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.9</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/ognl/ognl -->
+            <dependency>
+                <groupId>ognl</groupId>
+                <artifactId>ognl</artifactId>
+                <version>3.4.2</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.4</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.14</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.15.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>2.0.42</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>2.0.1.Final</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.14</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/eu.bitwalker/UserAgentUtils -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>1.21</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,73 @@
+/*CSS*/
+.imageView { width: 100%; height: 100%; overflow: hidden; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5); filter: alpha(opacity=50); -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none; z-index: 99999; }
+.imageView * { -moz-user-select: none; -khtml-user-select: none; user-select: none; }
+.imageView-header { height: auto; width: 100%; position: absolute; top: 0; left: 0; right: 0; overflow: visible; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.6); filter: alpha(opacity=60); padding: 5px; min-height: 30px; color: #fff; text-align: center; line-height: 30px; overflow: hidden; z-index: 10; }
+.imageView-close { position: absolute; top: 10px; right: 40px; display: block; font-size: 30px; line-height: 32px; cursor: pointer; z-index: 11; }
+.imageView-close i { width: 20px; height: 20px; }
+.imageView-prev,
+.imageView-next { height: 80px; width: 40px; background-color: #000; z-index: 100; position: absolute; margin-top: -60px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; cursor: pointer; }
+.imageView-prev { top: 50%; left: 5px; }
+.imageView-next { top: 50%; right: 5px; }
+.imageView-prev i,
+.imageView-next i { width: 40px; height: 100%; }
+.imageView-body { position: absolute; top: 40px; left: 0; right: 0; bottom: 110px; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); filter: alpha(opacity=40); overflow: hidden; }
+.imageView-body div.mover { border: solid 2px #fff; cursor: move; display: none; position: absolute; width: 200px; height: 50px; background-color: rgba(255,255,255,0.5); }
+.imageView-body div.mover img { width: 100%; height: 100%; }
+.imageView-body div.error { border: solid 2px #fff; display: none; color: #fff; font-size: 35px; width: 200px; height: 50px; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); text-align: center; position: absolute; left: 50%; margin-left: -100px; top: 50%; margin-top: -25px; }
+.imageView-footer { height: 40px; width: 100%; position: absolute; left: 0; right: 0; bottom: 0; overflow: visible; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.6); filter: alpha(opacity=60); padding: 5px; z-index: 10; }
+.imageView-tools { text-align: center; }
+.imageView-tools button { background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5); filter: alpha(opacity=50); outline: 0; border-style: none; vertical-align: middle; color: #fff; padding: 5px; line-height: 20px; font-weight: bold; font-size: 20px; text-align: center; width: 30px; height: 30px; cursor: pointer; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.imageView-tools button i { width: 20px; height: 20px; }
+.imageView-tools button:hover { background-color: #000; }
+.imageView-scale { width: 180px; height: 80px; position: absolute; left: 50%; top: 50%; margin-left: -90px; margin-top: -40px; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.6); filter: alpha(opacity=60); z-index: 10; color: #fff; font-size: 50px; line-height: 80px; overflow: hidden; text-align: center; display: none; cursor: move; }
+.imageView-icon i { background: url(/Content/jquery.imageView/Jquery.ImageView.png) no-repeat; display: block; }
+.imageView .icon-close i { background-position: -120px 0; }
+.imageView .icon-zoomOut i { background-position: 0 0; }
+.imageView .icon-zoomIn i { background-position: -20px 0; }
+.imageView .icon-prev i { background-position: -40px 0; }
+.imageView .icon-next i { background-position: -60px 0; }
+.imageView .icon-zoomFull i { background-position: -80px 0; }
+.imageView .icon-zoomOrigin i { background-position: -100px 0; }
+.imageView .icon-cPrev i { background-position: 0px -21px; }
+.imageView .icon-cNext i { background-position: -40px -21px; }
+.hoverEffect { filter: alpha(opacity=50); -moz-opacity: 0.5; opacity: 0.5; }
+.hoverEffect:hover { filter: alpha(opacity=100); -moz-opacity: 1; opacity: 1; }
+
+
+
+/*扩展：Loading*/
+.imageView-footer { height: 100px; }
+.imageView-thumbs { padding: 10px; position: relative; overflow: hidden; height: 60px; }
+.imageView-thumbs ul { display: block; margin: 0; padding: 0; position: absolute; }
+.imageView-thumbs ul:after { content: "."; line-height: 0; height: 0; overflow: hidden; clear: both; font-size: 0; display: block; visibility: hidden; }
+.imageView-thumbs li { display: inline-block; margin: 0; padding: 0; overflow: hidden; height: 50px; border: solid 5px #666; opacity: 0.5; margin-left: 5px; min-width: 80px; width: 80px; text-align: center; position: relative; overflow: hidden; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.imageView-thumbs li:hover { opacity: 1; -webkit-opacity: 1; -moz-opacity: 1; border: solid 5px #fff; }
+.imageView-thumbs li.current { opacity: 1; -webkit-opacity: 1; -moz-opacity: 1; border: solid 5px #fff; }
+.imageView-thumbs li img { height: 100%; }
+
+
+
+/*扩展：Loading*/
+.imageView-loading { display: block; width: 60px; height: 60px; text-align: center; font-size: 0; position: absolute; left: 50%; top: 50%; margin-left: -30px; margin-top: -55px; }
+.imageView-loading > div { margin-left: 2px; background-color: #67CF22; height: 100%; width: 6px; display: inline-block; -webkit-animation: stretchdelay 1.2s infinite ease-in-out; animation: stretchdelay 1.2s infinite ease-in-out; }
+.imageView-loading .rect2 { -webkit-animation-delay: -1.1s; animation-delay: -1.1s; }
+.imageView-loading .rect3 { -webkit-animation-delay: -1.0s; animation-delay: -1.0s; }
+.imageView-loading .rect4 { -webkit-animation-delay: -0.9s; animation-delay: -0.9s; }
+.imageView-loading .rect5 { -webkit-animation-delay: -0.8s; animation-delay: -0.8s; }
+
+/*扩展：minBox*/
+.imageView-minBox { width: 120px; height: 140px; z-index: 200000; position: absolute; right: 5px; bottom: 115px; background-color: #333; overflow: hidden; border: solid 1px #000; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.imageView-minBox .minTitle { height: 20px; line-height: 20px; font-size: 12px; color: #fff; text-align: center; background-color: #222; }
+.imageView-minBox .minView { width: 100px; height: 100px; text-align: center; overflow: hidden; position: relative; padding: 10px; }
+.imageView-minBox .minView img { position: absolute; }
+.imageView-minBox .minView .mover { position: absolute; border: solid 2px #F3D017; position: absolute; background-color: rgba(243, 208, 23,0.2); top: 50%; left: 50%; cursor: pointer; }
+
+@-webkit-keyframes stretchdelay {
+    0%, 40%, 100% { -webkit-transform: scaleY(0.4); }
+    20% { -webkit-transform: scaleY(1.0); }
+}
+
+@keyframes stretchdelay {
+    0%, 40%, 100% { transform: scaleY(0.4); -webkit-transform: scaleY(0.4); }
+    20% { transform: scaleY(1.0); -webkit-transform: scaleY(1.0); }
+}

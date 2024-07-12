@@ -1,0 +1,51 @@
+server:
+  port: 12025
+logging:
+  #log4j2配置文件
+  config: classpath:log4j2-dev.properties
+  level:
+    root: error
+    org: warn
+    org.springframework: info
+    org.springframework.boot: info
+    org.springframework.web: info
+    org.springframework.web.servlet.DispatcherServlet: warn
+    org.springframework.security: warn
+    "[org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker]": warn
+    org.springframework.boot.actuate.endpoint.web.servlet: info
+    org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver: warn
+    org.springframework.boot.actuate.mail.MailHealthIndicator: error
+    org.springframework.boot.web: info
+    org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext: warn
+    org.springframework.boot.web.servlet.ServletContextInitializerBeans: info
+    org.springframework.boot.devtools: warn
+    org.springframework.http.codec.json: info
+    org.springframework.jdbc.core: info
+    io.undertow.request: off
+    jp.com: info
+    jp.db: info
+    jp.web: info
+mybatis:
+  # mybatis配置
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:dbxml/*.xml
+datasource:
+  url: localhost:5432
+  dbname: dev_erp2024
+  username: postgres
+  password: 1234
+spring:
+  datasource:
+    # 数据库配置
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${datasource.url}/${datasource.dbname}?currentSchema=public
+    username: ${datasource.username}
+    password: ${datasource.password}
+    hikari:
+      maximum-pool-size: 20
+      max-lifetime: 1800000
+      minimum-idle: 10
+      idle-timeout: 30000
+      connection-timeout: 60000
+      connection-test-query: SELECT 1
+      pool-name: company-dbpool

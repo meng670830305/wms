@@ -1,0 +1,123 @@
+[12-16 14:06:02.671] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission"
+[12-16 14:06:02.707] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:06:02.769] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-16 14:06:02.772] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "groupid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_grouppermissionassign"
+[12-16 14:06:02.773] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:06:02.781] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-16 14:06:02.783] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "roleid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_rolepermissionassign"
+[12-16 14:06:02.784] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:06:02.788] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 0
+[12-16 14:06:02.790] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group"
+[12-16 14:06:02.791] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:06:02.795] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 1
+[12-16 14:06:02.796] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_role"
+[12-16 14:06:02.797] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:06:02.800] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 0
+[12-16 14:07:21.481] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "petname", "realname", "loginaccount", "loginpassword", "logintime", "loginip", "status", "phone", "email", "grouptext", "roletext", "department", "hash", "createtime", "createusername", "updatetime", "updateusername" FROM "account_user" WHERE email='davidkingbajie@gmail.com'
+[12-16 14:07:21.486] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:21.498] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:21.552] [DEBUG] [XNIO-1 task-2] [              j.d.e.m.A.update:135] [debug] - ==>  Preparing: UPDATE "account_user" SET "petname" = ?, "realname" = ?, "loginaccount" = ?, "loginpassword" = ?, "logintime" = ?, "loginip" = ?, "status" = ?, "phone" = ?, "email" = ?, "grouptext" = ?, "roletext" = ?, "department" = ?, "hash" = ?, "createtime" = ?, "createusername" = ?, "updatetime" = ?, "updateusername" = ? WHERE "id" = ?
+[12-16 14:07:21.556] [DEBUG] [XNIO-1 task-2] [              j.d.e.m.A.update:135] [debug] - ==> Parameters: 王云鹏(String), 王云鹏(String), davidkingbajie@gmail.com(String), 25f9e794323b453885f5181f1b624d0b(String), 2023-12-16T14:07:21.542033800(LocalDateTime), 127.0.0.1(String), 0(Integer), 18710351663(String), davidkingbajie@gmail.com(String), 开发测试组(String), (String), 研发部(String), 82bbb766b6044b0421bfd89e5d8d1a50(String), 2023-11-09T22:41:43(LocalDateTime), 王云鹏(String), 2023-11-11T09:40:21.947393(LocalDateTime), 王云鹏(String), 1(Integer)
+[12-16 14:07:21.561] [DEBUG] [XNIO-1 task-2] [              j.d.e.m.A.update:135] [debug] - <==    Updates: 1
+[12-16 14:07:21.563] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "userid", "groupid", "expiredtime", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_usergroupassign" WHERE userid=1
+[12-16 14:07:21.563] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:21.567] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:21.569] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group" WHERE id IN (1)
+[12-16 14:07:21.570] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:21.573] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:21.576] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "roleid", "userid", "expiredtime", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_userroleassign" WHERE userid=1
+[12-16 14:07:21.577] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:21.581] [DEBUG] [XNIO-1 task-2] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 0
+[12-16 14:07:22.591] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "userid", "groupid", "expiredtime", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_usergroupassign" WHERE userid=1 AND expiredtime>'2023-12-16 14:07:22'
+[12-16 14:07:22.592] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.596] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:22.600] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group" WHERE id IN (1)
+[12-16 14:07:22.601] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.603] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:22.605] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "groupid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_grouppermissionassign" WHERE groupid in (1)
+[12-16 14:07:22.606] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.620] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 15
+[12-16 14:07:22.630] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "roleid", "userid", "expiredtime", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_userroleassign" WHERE userid=1 AND expiredtime>'2023-12-16 14:07:22' AND isenable=1
+[12-16 14:07:22.631] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.633] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 0
+[12-16 14:07:22.638] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "userid", "permissionid", "assigntype", "isenable", "expiredtime", "createtime", "createusername", "updatetime", "updateusername" FROM "account_userpermissionassign" WHERE userid=1 AND isenable=1
+[12-16 14:07:22.639] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.642] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 0
+[12-16 14:07:22.650] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission" WHERE id IN ('536bf80c-9b30-4a35-b969-1dc2dc6c38a3','cf09b551-401e-4932-b735-90107696bb9d','7040399c-6c0d-4ea5-bb06-8fe6f238cf23','1a8a6d01-67c9-4894-8cf8-810baec02a22','fcf396eb-709a-4805-9b4c-b0dd419e81b6','7d675a57-f4a1-4329-a7d9-3a51f74283fa','4ddd758e-f381-4290-8646-5bc6fe7331bd','067bd55a-df65-4d51-ba87-7b4fd2452530','d3e373bc-b887-484a-9bb6-5081695666e7','520dfe76-3d91-46d7-9542-24b4b0d9ae0c','b5878a27-63a3-43f1-b06b-52bd82fa8165','8aafc3f3-1287-4847-b8d0-47886c405910','66c81dfb-71fc-4f1b-98eb-d477989ed79c','680d6fee-eb23-45f6-abd6-bc42a7a8cc30','76ca50fd-4e38-418f-8c6a-df9a0c1437a9')
+[12-16 14:07:22.652] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:22.680] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 15
+[12-16 14:07:32.290] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.W.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "region_id", "sort", "state", "createtime", "createusername", "updatetime", "updateusername" FROM "warehouse_info" WHERE 1=1 ORDER BY sort ASC LIMIT ? OFFSET ?
+[12-16 14:07:32.292] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.W.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:32.303] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.W.selectPage:135] [debug] - <==      Total: 2
+[12-16 14:07:32.305] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.W.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "warehouse_info" WHERE 1=1
+[12-16 14:07:32.306] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.W.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:32.311] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.W.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:34.169] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "warehouse_id", "warehouse_name", "warehouse_sort", "type", "sort", "state", "createtime", "createusername", "updatetime", "updateusername" FROM ( SELECT b.id, b.name, b.description, b.warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, b.type, b.sort, b.state, b.createtime, b.createusername, b.updatetime, b.updateusername FROM (barn_info b LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1 ORDER BY warehouse_sort ASC,sort ASC LIMIT ? OFFSET ?
+[12-16 14:07:34.171] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:34.180] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - <==      Total: 3
+[12-16 14:07:34.182] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM ( SELECT b.id, b.name, b.description, b.warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, b.type, b.sort, b.state, b.createtime, b.createusername, b.updatetime, b.updateusername FROM (barn_info b LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1
+[12-16 14:07:34.183] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:34.185] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:35.662] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "values", "sort", "state", "warehouse_id", "warehouse_name", "warehouse_sort", "barn_id", "barn_name", "barn_sort", "createtime", "createusername", "updatetime", "updateusername" FROM ( SELECT o.id, o.name, o."values", o.sort, o.state, w.id AS warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, o.barn_id, b.name AS barn_name, b.sort AS barn_sort, o.createtime, o.createusername, o.updatetime, o.updateusername FROM ((barn_option o LEFT JOIN barn_info b ON ((o.barn_id = b.id))) LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1 ORDER BY warehouse_sort ASC,barn_sort ASC,sort ASC LIMIT ? OFFSET ?
+[12-16 14:07:35.663] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:35.669] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.V.selectPage:135] [debug] - <==      Total: 3
+[12-16 14:07:35.670] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM ( SELECT o.id, o.name, o."values", o.sort, o.state, w.id AS warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, o.barn_id, b.name AS barn_name, b.sort AS barn_sort, o.createtime, o.createusername, o.updatetime, o.updateusername FROM ((barn_option o LEFT JOIN barn_info b ON ((o.barn_id = b.id))) LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1
+[12-16 14:07:35.671] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:35.674] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.V.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:38.905] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.V.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "warehouse_id", "warehouse_name", "warehouse_sort", "type", "sort", "state", "createtime", "createusername", "updatetime", "updateusername" FROM ( SELECT b.id, b.name, b.description, b.warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, b.type, b.sort, b.state, b.createtime, b.createusername, b.updatetime, b.updateusername FROM (barn_info b LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1 ORDER BY warehouse_sort ASC,sort ASC LIMIT ? OFFSET ?
+[12-16 14:07:38.906] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.V.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:38.913] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.V.selectPage:135] [debug] - <==      Total: 3
+[12-16 14:07:38.914] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.V.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM ( SELECT b.id, b.name, b.description, b.warehouse_id, w.name AS warehouse_name, w.sort AS warehouse_sort, b.type, b.sort, b.state, b.createtime, b.createusername, b.updatetime, b.updateusername FROM (barn_info b LEFT JOIN warehouse_info w ON ((w.id = b.warehouse_id))) ) AS V WHERE 1=1
+[12-16 14:07:38.915] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.V.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:38.918] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.V.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:44.272] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "groupid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_grouppermissionassign" WHERE permissionid IN ('fcf396eb-709a-4805-9b4c-b0dd419e81b6')
+[12-16 14:07:44.272] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:07:44.273] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:07:44.406] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "petname", "realname", "loginaccount", "loginpassword", "logintime", "loginip", "status", "phone", "email", "grouptext", "roletext", "department", "hash", "createtime", "createusername", "updatetime", "updateusername" FROM "account_user" WHERE 1=1 ORDER BY id DESC LIMIT ? OFFSET ?
+[12-16 14:07:44.407] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:44.410] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 1
+[12-16 14:07:44.412] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_user" WHERE 1=1
+[12-16 14:07:44.412] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:44.414] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:45.814] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group" WHERE 1=1 ORDER BY sort ASC LIMIT ? OFFSET ?
+[12-16 14:07:45.815] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:45.817] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 1
+[12-16 14:07:45.819] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_group" WHERE 1=1
+[12-16 14:07:45.819] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:45.820] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:46.510] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_role" WHERE 1=1 ORDER BY id DESC LIMIT ? OFFSET ?
+[12-16 14:07:46.511] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:07:46.513] [DEBUG] [XNIO-1 task-4] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 0
+[12-16 14:07:46.514] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_role" WHERE 1=1
+[12-16 14:07:46.516] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:07:46.517] [DEBUG] [XNIO-1 task-4] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:07:47.306] [DEBUG] [XNIO-1 task-4] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission"
+[12-16 14:07:47.306] [DEBUG] [XNIO-1 task-4] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:07:47.312] [DEBUG] [XNIO-1 task-4] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-16 14:07:51.217] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission"
+[12-16 14:07:51.218] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:07:51.224] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-16 14:08:15.200] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==>  Preparing: SELECT "id", "groupid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_grouppermissionassign" WHERE permissionid IN ('fcf396eb-709a-4805-9b4c-b0dd419e81b6')
+[12-16 14:08:15.200] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - ==> Parameters: 
+[12-16 14:08:15.203] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectWhere:135] [debug] - <==      Total: 1
+[12-16 14:08:15.364] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "petname", "realname", "loginaccount", "loginpassword", "logintime", "loginip", "status", "phone", "email", "grouptext", "roletext", "department", "hash", "createtime", "createusername", "updatetime", "updateusername" FROM "account_user" WHERE 1=1 ORDER BY id DESC LIMIT ? OFFSET ?
+[12-16 14:08:15.365] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:08:15.368] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 1
+[12-16 14:08:15.369] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_user" WHERE 1=1
+[12-16 14:08:15.370] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:08:15.371] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:08:16.262] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group" WHERE 1=1 ORDER BY sort ASC LIMIT ? OFFSET ?
+[12-16 14:08:16.263] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:08:16.266] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 1
+[12-16 14:08:16.267] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_group" WHERE 1=1
+[12-16 14:08:16.267] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:08:16.269] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:08:17.036] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_role" WHERE 1=1 ORDER BY id DESC LIMIT ? OFFSET ?
+[12-16 14:08:17.037] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - ==> Parameters: 20(Integer), 0(Integer)
+[12-16 14:08:17.040] [DEBUG] [XNIO-1 task-3] [          j.d.e.m.A.selectPage:135] [debug] - <==      Total: 0
+[12-16 14:08:17.041] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==>  Preparing: SELECT COUNT(0) FROM "account_role" WHERE 1=1
+[12-16 14:08:17.042] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - ==> Parameters: 
+[12-16 14:08:17.043] [DEBUG] [XNIO-1 task-3] [         j.d.e.m.A.selectCount:135] [debug] - <==      Total: 1
+[12-16 14:08:17.790] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission"
+[12-16 14:08:17.791] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-16 14:08:17.795] [DEBUG] [XNIO-1 task-3] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15

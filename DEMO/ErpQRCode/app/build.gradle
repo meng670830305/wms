@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.application'
+}
+
+def getTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getDefault());
+}
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('../apk_keystore.jks')
+            storePassword '1q2w3e4r'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file('../apk_keystore.jks')
+            storePassword '1q2w3e4r'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+    }
+    namespace 'jp.compamy.erpqrcode'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "jp.compamy.erpqrcode"
+        minSdk 28
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        def appConfigJsonFile = file('config.json')
+        def appConfigJson = new groovy.json.JsonSlurper().parseText(appConfigJsonFile.text)
+
+        // 打包后应用名称
+        applicationVariants.all {
+            variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        if (variant.buildType.name.equals('release')) {
+                            output.outputFileName = "${appConfigJson.APP_NAME}.release.${variant.versionName}.${getTime()}.apk"
+                        } else if (variant.buildType.name.equals('debug')) {
+                            output.outputFileName = "${appConfigJson.APP_NAME}.debug.${variant.versionName}.${getTime()}.apk"
+                        }
+                    }
+                }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'com.github.tony19:logback-android:3.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation project(':zxing-lib')
+}

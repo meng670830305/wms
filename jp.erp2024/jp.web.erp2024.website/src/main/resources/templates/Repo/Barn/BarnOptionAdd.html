@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: select2}" />
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: toolstip}" />
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫名前：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_WAREHOUSE_ID_, _WAREHOUSE_ID_)})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫区域名前：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_BARN_ID_, _BARN_ID_)})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫オプション名：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, "", "class=easyui-validatebox", "required=true", "maxlength=20" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫オプション値：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_VALUES_, _VALUES_, "required=true", "class=select2-multiple", "style=width:200px")})] <kbd>Enter</kbd>分隔
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>順番：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_SORT_, "", "class=easyui-numberspinner", "required=true", "min=1", "max=100" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>状態：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "1", _STATE_, "1", true)})]<label th:for="${_STATE_ + '1'}">有効</label>
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "0", _STATE_, "0", false)})]<label th:for="${_STATE_ + '0'}">無効</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            path: '/Repo/Barn',
+            form: $("#form"),
+            $wareHouse: $('#[(${_WAREHOUSE_ID_})]'),
+            $barn: $('#[(${_BARN_ID_})]'),
+            $values: $('#[(${_VALUES_})]')
+        };
+
+        cache.$wareHouse.combobox({
+            required: true,
+            editable: false,
+            readonly: false,
+            valueField: "[(${_ID_})]",
+            textField: "[(${_NAME_})]",
+            Prompt: "倉庫名前",
+            url: `/Repo/WareHouse/GetWareHouseAll`,
+            onSelect: function(item) {
+                cache.$barn.combobox({
+                    url: `/Repo/Barn/GetBarnInfoList/${item.[(${_ID_})]}`,
+                }).combobox('clear');
+            }
+        });
+
+        cache.$barn.combobox({
+            required: true,
+            editable: false,
+            readonly: true,
+            valueField: "[(${_ID_})]",
+            textField: "[(${_NAME_})]",
+            Prompt: "倉庫区域名",
+            onLoadSuccess: function () {
+                $(this).combobox("readonly", $(this).combobox("getData").length == 0);
+            }
+        });
+
+        $(function () {
+            cache.$values.select2({language: 'ja', tags: true, multiple: true});
+        });
+
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api(`${cache.path}/BarnOptionAddSave`, data, callBack);
+        }
+    </script>
+</th:block>
+</html>

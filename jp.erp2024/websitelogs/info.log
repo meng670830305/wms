@@ -1,0 +1,4 @@
+[12-19 12:17:21.585] [ INFO] [restartedMain] [        j.w.e.w.WebSiteProgram: 51] [logStarting] - Starting WebSiteProgram using Java 17.0.9 with PID 6420 (C:\sns-ec\jp.erp2024\jp.web.erp2024.website\target\classes started by MENG in C:\sns-ec\jp.erp2024)
+[12-19 12:17:21.620] [ INFO] [restartedMain] [        j.w.e.w.WebSiteProgram:638] [logStartupProfileInfo] - No active profile set, falling back to 1 default profile: "default"
+[12-19 12:17:33.110] [ INFO] [restartedMain] [ o.s.b.w.e.u.UndertowWebServer:121] [start] - Undertow started on port(s) 12024 (http)
+[12-19 12:17:33.140] [ INFO] [restartedMain] [        j.w.e.w.WebSiteProgram: 57] [logStarted] - Started WebSiteProgram in 13.048 seconds (process running for 16.42)

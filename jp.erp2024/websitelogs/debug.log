@@ -1,0 +1,15 @@
+[12-19 12:17:28.610] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "parentid", "permissionkey", "name", "description", "icon", "canmenu", "data", "href", "isenable", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_permission"
+[12-19 12:17:28.653] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-19 12:17:28.733] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-19 12:17:28.736] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "groupid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_grouppermissionassign"
+[12-19 12:17:28.738] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-19 12:17:28.754] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 15
+[12-19 12:17:28.756] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "roleid", "permissionid", "createtime", "createusername", "updatetime", "updateusername" FROM "account_rolepermissionassign"
+[12-19 12:17:28.756] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-19 12:17:28.760] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 0
+[12-19 12:17:28.762] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "sort", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_group"
+[12-19 12:17:28.763] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-19 12:17:28.769] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 1
+[12-19 12:17:28.771] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==>  Preparing: SELECT "id", "name", "description", "isenable", "remark", "createtime", "createusername", "updatetime", "updateusername" FROM "account_role"
+[12-19 12:17:28.772] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - ==> Parameters: 
+[12-19 12:17:28.776] [DEBUG] [restartedMain] [           j.d.e.m.A.selectAll:135] [debug] - <==      Total: 0

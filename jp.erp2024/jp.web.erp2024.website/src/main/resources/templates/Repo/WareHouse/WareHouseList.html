@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <div id="toolbar" style="padding: 5px;">
+        <div>
+            [(${HTML_HELPER.PlainButton("追加倉庫", "btnAdd", "icon-add")})]
+            [(${HTML_HELPER.PlainButton("編集倉庫", "btnEdit", "icon-edit")})]
+            [(${HTML_HELPER.PlainButton("無効", "btnDelete", "icon-remove")})]
+        </div>
+        <table style="height: 30px;">
+            <tr>
+                <td class="toolsbar-title">絞り込み条件：</td>
+                <td>
+                    <div id="filterBar"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="view"></table>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <th:block th:insert="~{Shared/_Include :: raw}" />
+    <script type="text/javascript" th:inline="javascript">
+        var cache={
+            path: '/Repo/WareHouse',
+            view:$("#view"),
+        };
+
+        cache.view.datagrid({
+            url: `${cache.path}/WareHouseListData`,
+            toolbar: "#toolbar",
+            filter: '#filter',
+            rownumbers: true,
+            singleSelect: true,
+            striped: true,
+            pagination: true,
+            fit: true,
+            fitColumns: false,
+            pageSize: 20,
+            pageNumber: 1,
+            pageList: [10,15, 20,25,30],
+            filterData: raw([[${T(jp.com.module.JsonManager).serialize(FILTER_DATA)}]]),
+            queryParams: {},
+            columns: [
+                [
+                    {
+                        field: '[(${_NAME_})]',
+                        title: '倉庫名前',
+                        width: 150,
+                        headerContextMenu: [
+                            {
+                                type: "searchbox",
+                                onChange: function (value) {
+                                    this.datagrid("filterLoad", { 'Field': '[(${_NAME_})]', 'Value': value });
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_DESCRIPTION_})]',
+                        title: '倉庫ノート',
+                        width: 300,
+                        headerContextMenu: [{
+                            type: "searchbox",
+                            onChange: function (value) {
+                                this.datagrid("filterLoad", { 'Field': '[(${_DESCRIPTION_})]', 'Value': value });
+                            }
+                        }]
+                    },
+                    {
+                        field: '[(${_SORT_})]',
+                        title: '倉庫順番',
+                        width: 110
+                    },
+                    { field: '[(${_STATE_})]', title: '状態', width: 80, formatter: raw([[${T(jp.com.module.EasyUI).enumFormatter(E_STATE)}]]),
+                        headerContextMenu: [
+                            {
+                                type: "combobox",
+                                data: raw([[${T(jp.com.module.EasyUI).enumFilterData(E_STATE)}]]),
+                                onChange: function (value) {
+                                    if (value == -1) value = null;
+                                    this.datagrid("filterLoad", { 'Field': '[(${_STATE_})]', 'Value': value });
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_CREATEUSERNAME_})]',
+                        title: '創造人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_CREATETIME_})]',
+                        title: '創造時間',
+                        width: 180,
+                        formatter:JQEUI.grid.datetimeFormatter,
+                        sortable: true
+                    },
+                    {
+                        field: '[(${_UPDATEUSERNAME_})]',
+                        title: '更新人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_UPDATETIME_})]',
+                        title: '更新時間',
+                        width: 180,
+                        formatter:JQEUI.grid.datetimeFormatter,
+                        sortable: true
+                    }
+                ]
+            ]
+        });
+
+        $("#btnAdd").bind("click", function () {
+            JQEUI.dialog({
+                title: "追加",
+                width: 500,
+                height: 420,
+                href: `${cache.path}/WareHouseAdd`,
+                iframe: true,
+                buttons: [{
+                    text:'登録',
+                    iconCls:'icon-ok',
+                    handler: function (dialog, iframe) {
+                        iframe.contentWindow.save(function(){
+                            cache.view.datagrid('reload');
+                            dialog.dialog('close');
+                        });
+                    }
+                },{
+                    text: 'クローズ',
+                    iconCls: 'icon-close',
+                    handler: function (dialog) {
+                        dialog.dialog('close');
+                    }
+                }]
+            });
+            return false;
+        });
+
+        $("#btnEdit").bind("click", function () {
+            var row = cache.view.datagrid('getSelected');
+            if (row == null) {
+                JQEUI.info("请选择一行数据");
+                return;
+            }
+            JQEUI.dialog({
+                title: "編集",
+                width: 500,
+                height: 420,
+                href: `${cache.path}/WareHouseEdit/${row.[(${_ID_})]}`,
+                iframe: true,
+                buttons: [{
+                    text:'更新',
+                    iconCls:'icon-ok',
+                    handler: function (dialog, iframe) {
+                        iframe.contentWindow.save(function(){
+                            cache.view.datagrid('reload');
+                            dialog.dialog('close');
+                        });
+                    }
+                },{
+                    text: 'クローズ',
+                    iconCls: 'icon-close',
+                    handler: function (dialog) {
+                        dialog.dialog('close');
+                    }
+                }]
+            });
+            return false;
+        });
+
+        $('#btnDelete').bind('click', function () {
+            var row = cache.view.datagrid('getSelected');
+            if (row == null) {
+                JQEUI.info( "请选择一行数据");
+                return;
+            }
+            JQEUI.confirm('選択したレコードが無効に設定されていることを確認しますか？', function (r) {
+                if (r) {
+                    JQEUI.api(`${cache.path}/WareHouseDelete`, { 'id': row.[(${_ID_})] }, function () {
+                        cache.view.datagrid("reload");
+                    });
+                }
+            });
+        });
+
+    </script>
+</th:block>
+</html>

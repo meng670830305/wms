@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>名称：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, "", "class=easyui-validatebox", "required=true", "maxlength=20" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>排序：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_SORT_, "", "class=easyui-numberspinner", "min=1", "max=100", "required=true" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>描述：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_DESCRIPTION_, "", "class=easyui-validatebox", "required=true", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">备注：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_REMARK_, "", "class=easyui-validatebox", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form: $("#form")
+        };
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api("/Account/Access/GroupAddSave", data, callBack);
+        }
+    </script>
+</th:block>
+</html>

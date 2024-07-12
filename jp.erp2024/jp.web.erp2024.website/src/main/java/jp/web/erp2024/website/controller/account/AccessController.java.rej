@@ -1,0 +1,12 @@
+diff a/jp.erp2024/jp.web.erp2024.website/src/main/java/jp/web/erp2024/website/controller/account/AccessController.java b/jp.erp2024/jp.web.erp2024.website/src/main/java/jp/web/erp2024/website/controller/account/AccessController.java	(rejected hunks)
+@@ -320,8 +320,8 @@
+ 
+     @RequestMapping(value = "PermissionDelete", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+     @ResponseBody
+-    public String permissionDelete(@RequestParam("permissionID") String permissionID) throws Exception {
+-        this.account_permissionService.deletePermission(permissionID);
++    public String permissionDelete(@RequestParam("id") String id) throws Exception {
++        this.account_permissionService.deletePermission(id);
+         return JsonManager.getSuccess();
+     }
+ 

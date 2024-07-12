@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        [(${HTML_HELPER.Hidden(_ID_, MODEL.id)})]
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>名称：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, MODEL.name, "style=width:200px", "class=easyui-validatebox", "required=true", "maxlength=50" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>描述：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_DESCRIPTION_, MODEL.description, "class=easyui-validatebox", "required=true", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">是否启用：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.CheckBox(_ISENABLE_, _ISENABLE_, MODEL.isenable, MODEL.isenable==1 )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">备注：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_REMARK_, MODEL.remark, "class=easyui-validatebox", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form: $("#form")
+        };
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api("/Account/Access/RoleEditSave", data, callBack);
+        }
+    </script>
+</th:block>
+</html>

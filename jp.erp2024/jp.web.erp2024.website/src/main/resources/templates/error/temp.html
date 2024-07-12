@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <h2>status：[[${status}]]</h2>
+    <h2>error：[[${error}]]</h2>
+    <h2>timestamp：[(${#calendars.format(#calendars.createNow(),'yyyy-MM-dd HH:mm:ss')})]</h2>
+    <h2>user：[[${author}]]</h2>
+    <h2>company：[[${company}]]</h2>
+    <h2>path：[[${path}]]</h2>
+    <div>
+        <ul>
+            <li style="font-weight: bold;">Message：<br>[[${message}]]</li>
+            <li style="font-weight: bold;">StackTrace：<br>[(${stackTrace})]</li>
+            <li style="font-weight: bold;">Exception：<br>[[${exception}]]</li>
+        </ul>
+    </div>
+</body>
+</html>

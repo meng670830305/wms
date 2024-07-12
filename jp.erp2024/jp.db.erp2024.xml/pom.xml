@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>jp_erp2024</artifactId>
+        <groupId>jp.erp2024</groupId>
+        <version>${system.version}</version>
+    </parent>
+
+    <groupId>jp.db</groupId>
+    <artifactId>jp.db.erp2024.xml</artifactId>
+    <version>${jp.db.erp2024.xml.version}</version>
+    <name>jp.db.erp2024.xml</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>jp.db</groupId>
+            <artifactId>jp.db.erp2024.pojo</artifactId>
+            <version>${jp.db.erp2024.pojo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jp.db</groupId>
+            <artifactId>jp.db.erp2024.mapper</artifactId>
+            <version>${jp.db.erp2024.mapper.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+    </build>
+</project>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        [(${HTML_HELPER.Hidden(_ID_, MODEL.id)})]
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫名前：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, MODEL.name, "class=easyui-validatebox", "required=true", "maxlength=20" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫ノート：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_DESCRIPTION_, MODEL.description, "class=easyui-validatebox", "required=true", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>順番：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_SORT_, MODEL.sort, "class=easyui-numberspinner", "required=true", "min=1", "max=100" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">状態：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "1", _STATE_, "1", MODEL.state==1)})]<label th:for="${_STATE_ + '1'}">有効</label>
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "0", _STATE_, "0", MODEL.state==0)})]<label th:for="${_STATE_ + '0'}">無効</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form: $("#form")
+        };
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api("/Repo/WareHouse/WareHouseEditSave", data, callBack);
+        }
+    </script>
+</th:block>
+</html>

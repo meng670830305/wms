@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        [(${HTML_HELPER.Hidden(_ID_, MODEL.id)})]
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫名前：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Select(_WAREHOUSE_ID_, _WAREHOUSE_ID_)})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫区域名前：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_NAME_, MODEL.name, "class=easyui-validatebox", "required=true", "maxlength=20" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫区域ノート：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextArea(_DESCRIPTION_, MODEL.description, "class=easyui-validatebox", "required=true", "rows=5", "maxlength=500" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>倉庫区域タイプ：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.RadioButton(_TYPE_ + "0", _TYPE_, "0", MODEL.type==0)})]<label th:for="${_TYPE_ + '0'}">普通</label>
+                    [(${HTML_HELPER.RadioButton(_TYPE_ + "1", _TYPE_, "1", MODEL.type==1)})]<label th:for="${_TYPE_ + '1'}">特別</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>順番：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_SORT_, MODEL.sort, "class=easyui-numberspinner", "required=true", "min=1", "max=100" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>状態：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "1", _STATE_, "1", MODEL.state==1)})]<label th:for="${_STATE_ + '1'}">有効</label>
+                    [(${HTML_HELPER.RadioButton(_STATE_ + "0", _STATE_, "0", MODEL.state==0)})]<label th:for="${_STATE_ + '0'}">無効</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            path: '/Repo/Barn',
+            form: $("#form")
+        };
+
+        $('#[(${_WAREHOUSE_ID_})]').combobox({
+            required: true,
+            editable: false,
+            value: "[(${MODEL.warehouse_id})]",
+            valueField: "[(${_ID_})]",
+            textField: "[(${_NAME_})]",
+            url: `/Repo/WareHouse/GetWareHouseAll`
+        });
+
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api(`${cache.path}/BarnInfoEditSave`, data, callBack);
+        }
+    </script>
+</th:block>
+</html>

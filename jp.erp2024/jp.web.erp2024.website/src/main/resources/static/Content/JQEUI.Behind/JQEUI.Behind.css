@@ -1,0 +1,66 @@
+﻿.scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar::-webkit-scrollbar-track { background-color: #fff; }
+.scrollbar::-webkit-scrollbar-thumb { background: #aaa; }
+.scrollbar::-webkit-scrollbar-thumb:vertical:hover { background: #4e4e4e; }
+.noselect { cursor: default; -moz-user-select: none; -ms-user-select: none; -webkit-user-select: none; user-select: none; }
+
+
+.table { width: 100%; }
+.table td { padding: 5px 0 5px 5px;border: solid 1px #e0e0e0; word-wrap: break-word;word-break:break-all;white-space: normal; }
+.table th { text-align: left; padding: 5px 0 5px 5px;border: solid 1px #e0e0e0; color: #000;font-size: 12px;}
+
+
+.box { margin-bottom: 10px; border: 1px solid #F0F0F0; }
+.box-title { line-height:3;font-size:22px;text-align:center;}
+.box-head { border-bottom: 1px solid #dfdfdf; /*width: 100%;*/ position: relative;background-color:#f0f0f0; }
+.box-head h2,
+.box-head h3,
+.box-head h4 { /*font-size: 16px;*/ text-indent:10px; padding: 10px 0 10px 0; font-weight:normal; line-height: 1; /*display: inline-block; border-bottom: solid 1px #ff6700; margin-bottom: -1px; *display: inline; *zoom: 1;*/ }
+.box-body { position: relative; /*width: 100%; overflow: hidden;*/ }
+.box-foot { border-top: 1px solid #dfdfdf; /*width: 100%;*/ position: relative; overflow: hidden; }
+.box-p10 { padding:10px 0 0 0;}
+.box-p15 { padding:15px 0 5px 0;}
+.box-p20 { padding:20px 0 10px 0;}
+
+
+/*带label的详细信息样式，如订单详情页和支付页面的详细信息*/
+.lt { margin: 5px 0; }
+.lt li { position: relative; padding: 2px 0 2px 65px; line-height: 1.8; min-height: 21px; }
+.lt label { display: block; position: absolute; padding-right: 10px; top: 2px; left: 2px; text-align: left; white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; }
+.lt-80 li { padding-left: 85px; }
+.lt-80 label { max-width: 75px; }
+.lt-100 li { padding-left: 105px; }
+.lt-100 label { max-width: 95px; }
+.lt-120 li { padding-left: 125px; }
+.lt-120 label { max-width: 115px; }
+.lt label { background: url('Images/colon.gif') no-repeat right 6px; }
+
+
+
+/*tip*/
+.tip { margin: 0; padding: 5px; counter-reset: sectioncounter 0; }
+.tip dt { margin: 0; padding: 0; font-size: 14px; }
+.tip dt:before { display: inline-block; height: 16px; padding-top: 3px; padding-right: 8px; padding-bottom: 5px; vertical-align: top; opacity: 0.6; content: url(/Content/icons/tip.png); }
+.tip dd { margin: 0; }
+.tip dd:before { content: counter(sectioncounter) ". "; counter-increment: sectioncounter; }
+/*提示闪烁功能*/
+.flash .tip dd { -o-animation: blink 6s linear infinite; -webkit-animation: blink 6s linear infinite; -moz-animation: blink 6s linear infinite; animation: blink 6s linear infinite; }
+
+@keyframes blink {
+    0% { color: #F6000F; }
+    33% { color: #FF9000; }
+    66% { color: #13A600; }
+}
+
+@-webkit-keyframes blink {
+    0% { color: #F6000F; }
+    33% { color: #FF9000; }
+    66% { color: #13A600; }
+}
+
+@-moz-keyframes blink {
+    0% { color: #F6000F; }
+    33% { color: #FF9000; }
+    66% { color: #13A600; }
+}
+

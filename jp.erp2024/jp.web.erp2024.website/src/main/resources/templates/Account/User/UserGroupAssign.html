@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <div id="toolbar" style="padding: 5px;">
+        <div>
+            [(${HTML_HELPER.PlainButton("添加ユーザー组", "btnAdd", "icon-add")})]
+            [(${HTML_HELPER.PlainButton("編集ユーザー组", "btnUpdate", "icon-edit")})]
+            [(${HTML_HELPER.PlainButton("删除ユーザー组", "btnDelete", "icon-remove")})]
+        </div>
+        <table style="height: 30px;">
+            <tr>
+                <td class="toolsbar-title">絞り込み条件：</td>
+                <td>
+                    <div id="filterBar"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="view"></table>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <th:block th:insert="~{Shared/_Include :: raw}" />
+    <script type="text/javascript" th:inline="javascript">
+        var cache = {
+            path: '/Account/User',
+            view: $("#view"),
+            filterBar:$("#filterBar")
+        };
+
+        cache.view.datagrid({
+            url: `${cache.path}/UserGroupAssignData`,
+            rownumbers: true,
+            toolbar: "#toolbar",
+            filter: '#filter',
+            pageSize: 20,
+            pageNumber: 1,
+            pageList: [10,15, 20,25,30],
+            remoteSort: true,
+            filterData: raw([[${T(jp.com.module.JsonManager).serialize(FILTER_DATA)}]]),
+            queryParams: {},
+            columns: [
+                [
+                    { field: '[(${_NAME_})]', title: '名称', width: 100,
+                        headerContextMenu: [{
+                            type: "searchbox",
+                            onChange: function (value) {
+                                this.datagrid("filterLoad", { 'Field': '[(${_NAME_})]', 'Value': value });
+                            }
+                        }]
+                    },
+                    {
+                        field: '[(${_DESCRIPTION_})]',
+                        title: '描述',
+                        width: 200
+                    },
+                    {
+                        field: '[(${_EXPIREDTIME_})]',
+                        title: '失效时间',
+                        width: 140,
+                        sortable: true,
+                        formatter: JQEUI.grid.dateFormatter
+                    },
+                    {
+                        field: '[(${_REMARK_})]',
+                        title: '备注',
+                        width: 250
+                    },
+                    {
+                        field: '[(${_CREATEUSERNAME_})]',
+                        title: '創造人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_CREATETIME_})]',
+                        title: '創造時間',
+                        width: 180,
+                        sortable: true,
+                        formatter: JQEUI.grid.datetimeFormatter
+                    },
+                    {
+                        field: '[(${_UPDATEUSERNAME_})]',
+                        title: '更新人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_UPDATETIME_})]',
+                        title: '更新時間',
+                        width: 180,
+                        sortable: true,
+                        formatter: JQEUI.grid.datetimeFormatter
+                    }
+                ]
+            ]
+        });
+
+        $("#btnAdd").on("click", function (e) {
+            JQEUI.dialog({
+                title: "ユーザー组追加",
+                width: 500,
+                height: 400,
+                href: `${cache.path}/UserGroupAssignAdd?userID=${[(${USERID})]}`,
+                iframe: true,
+                buttons: [{
+                    text:'确定',
+                    iconCls:'icon-ok',
+                    handler: function (dialog, iframe) {
+                        iframe.contentWindow.save(function(){
+                            cache.view.datagrid('reload');
+                            dialog.dialog('close');
+                        });
+                    }
+                }]
+            });
+            return false;
+        });
+
+        $("#btnUpdate").click(function () {
+            var selection = cache.view.datagrid('getSelected');
+            if(!selection) {
+                JQEUI.error("请选择要操作的行！");
+                return false;
+            }
+            var groupAssignID = selection.[(${_ID_})];
+            JQEUI.dialog({
+                title: "ユーザー组編集",
+                width: 500,
+                height: 400,
+                href: `${cache.path}/UserGroupAssignUpdate?groupAssignID=${groupAssignID}`,
+                iframe: true,
+                buttons: [{
+                    text:'确定',
+                    iconCls:'icon-ok',
+                    handler: function (dialog, iframe) {
+                        iframe.contentWindow.save(function(){
+                            cache.view.datagrid('reload');
+                            dialog.dialog('close');
+                        });
+                    }
+                }]
+            });
+            return false;
+        });
+
+        $("#btnDelete").click(function () {
+            var selection = cache.view.datagrid('getSelected');
+            if(!selection)
+            {
+                JQEUI.error("请选择要操作的行！");
+                return false;
+            }
+            var groupAssignID = selection.[(${_ID_})];
+            JQEUI.confirm('确定删除选中的记录吗？', function (r) {
+                if (r) {
+                    JQEUI.api(`${cache.path}/UserGroupAssignDelete`, { 'groupAssignID': groupAssignID }, function () { cache.view.datagrid('reload'); });
+                }
+            });
+            return false;
+        });
+    </script>
+</th:block>
+</html>

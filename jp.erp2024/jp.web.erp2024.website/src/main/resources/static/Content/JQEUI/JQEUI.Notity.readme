@@ -1,0 +1,22 @@
+﻿/*
+ * JQEUI 扩展，跨页面消息通知模块
+ *
+ * 作者:孙亮
+ *
+ * 参数:
+ *   JQEUI.notity({
+ *       event: 'PMS_PRODUCT_CHANGE', //消息类型
+ *       target: 'all',				  //[可选参数]通知范围 可选值有：all child children parents parent sibling siblings
+ *       data:{}                      //[可选参数]携带的数据
+ *       match:/http:\/\/pms\./i      //[可选参数]匹配规则 match可以为 function(window){/*window为目标页面的window*/} 或 正则表达式(匹配url的)
+ *   });
+ *
+ *
+ * 用法：
+ *   //方式1：
+ *   JQEUI.notity({
+ *       event: 'PMS_PRODUCT_CHANGE',
+ *       target: 'all',
+ *       data: json.Data.SPUID
+ *   });
+ */

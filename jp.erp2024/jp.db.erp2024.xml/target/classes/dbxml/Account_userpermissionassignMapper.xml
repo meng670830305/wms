@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.db.erp2024.mapper.Account_userpermissionassignMapper">
+    <resultMap id="BaseResultMap" type="jp.db.erp2024.pojo.Account_userpermissionassign">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="permissionid" property="permissionid" jdbcType="VARCHAR" />
+        <result column="assigntype" property="assigntype" jdbcType="INTEGER" />
+        <result column="isenable" property="isenable" jdbcType="INTEGER" />
+        <result column="expiredtime" property="expiredtime" jdbcType="TIMESTAMP" />
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+        <result column="createusername" property="createusername" jdbcType="VARCHAR" />
+        <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+        <result column="updateusername" property="updateusername" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        "id", "userid", "permissionid", "assigntype", "isenable", "expiredtime", "createtime", "createusername", "updatetime", "updateusername"
+	</sql>
+    
+    <insert id="insert" parameterType="jp.db.erp2024.pojo.Account_userpermissionassign" 
+       useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+    >
+        <selectKey keyProperty="id" order="AFTER" resultType="INTEGER">
+			select currval(pg_get_serial_sequence('account_userpermissionassign', 'id'));
+		</selectKey>
+        INSERT INTO "account_userpermissionassign"
+    	(
+    		"userid",
+    		"permissionid",
+    		"assigntype",
+    		"isenable",
+    		"expiredtime",
+    		"createtime",
+    		"createusername",
+    		"updatetime",
+    		"updateusername"
+    	) 
+    	VALUES
+    	(
+    		#{userid, jdbcType=INTEGER},
+    		#{permissionid, jdbcType=VARCHAR},
+    		#{assigntype, jdbcType=INTEGER},
+    		#{isenable, jdbcType=INTEGER},
+    		#{expiredtime, jdbcType=TIMESTAMP},
+    		#{createtime, jdbcType=TIMESTAMP},
+    		#{createusername, jdbcType=VARCHAR},
+    		#{updatetime, jdbcType=TIMESTAMP},
+    		#{updateusername, jdbcType=VARCHAR}
+    	)
+	</insert>
+    <delete id="delete" parameterType="jp.db.erp2024.pojo.Account_userpermissionassign">
+        DELETE FROM "account_userpermissionassign"
+        WHERE "id" = #{id, jdbcType=INTEGER}
+	</delete>
+    <delete id="deleteWhere" parameterType="java.lang.String">
+		DELETE FROM "account_userpermissionassign"
+        <choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</delete>
+    <update id="update" parameterType="jp.db.erp2024.pojo.Account_userpermissionassign">
+		UPDATE "account_userpermissionassign"
+        <trim prefix="SET" suffixOverrides=",">
+    		<if test="userid != null">"userid" = #{userid, jdbcType=INTEGER},</if>
+    		<if test="permissionid != null">"permissionid" = #{permissionid, jdbcType=VARCHAR},</if>
+    		<if test="assigntype != null">"assigntype" = #{assigntype, jdbcType=INTEGER},</if>
+    		<if test="isenable != null">"isenable" = #{isenable, jdbcType=INTEGER},</if>
+    		<if test="expiredtime != null">"expiredtime" = #{expiredtime, jdbcType=TIMESTAMP},</if>
+    		<if test="createtime != null">"createtime" = #{createtime, jdbcType=TIMESTAMP},</if>
+    		<if test="createusername != null">"createusername" = #{createusername, jdbcType=VARCHAR},</if>
+    		<if test="updatetime != null">"updatetime" = #{updatetime, jdbcType=TIMESTAMP},</if>
+    		<if test="updateusername != null">"updateusername" = #{updateusername, jdbcType=VARCHAR},</if>
+        </trim>
+        WHERE "id" = #{id, jdbcType=INTEGER}
+	</update>
+    <select id="selectOne" resultMap="BaseResultMap" parameterType="jp.db.erp2024.pojo.Account_userpermissionassign">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_userpermissionassign"
+		WHERE "id" = #{id, jdbcType=INTEGER}
+	</select>
+    <select id="selectAll" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_userpermissionassign"
+	</select>
+    <select id="selectWhere" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_userpermissionassign"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</select>
+    <select id="selectSort" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_userpermissionassign"
+		<if test="orderBy != null and orderBy != ''">
+		ORDER BY ${orderBy}
+		</if>
+	</select>
+    <select id="selectPage" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_userpermissionassign"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+		<if test="orderBy != null and orderBy != ''">
+		ORDER BY ${orderBy}
+		</if>
+		LIMIT #{pagesize, jdbcType=INTEGER} OFFSET #{offset, jdbcType=INTEGER}
+	</select>
+    <select id="selectCount" resultType="java.lang.Integer">
+		SELECT COUNT(0)
+		FROM "account_userpermissionassign"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</select>
+</mapper>

@@ -1,0 +1,110 @@
+WEB_SITE_NAME: 株式会社霓虹ソフト
+server:
+  port: 12024
+logging:
+  config: classpath:log4j2-dev.properties
+  level:
+    root: error
+    org: warn
+    org.springframework: info
+    org.springframework.boot: info
+    org.springframework.web: info
+    org.springframework.web.servlet.DispatcherServlet: warn
+    org.springframework.security: warn
+    "[org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker]": warn
+    org.springframework.boot.actuate.endpoint.web.servlet: info
+    org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver: warn
+    org.springframework.boot.actuate.mail.MailHealthIndicator: error
+    org.springframework.boot.web: info
+    org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext: warn
+    org.springframework.boot.web.servlet.ServletContextInitializerBeans: info
+    org.springframework.boot.devtools: warn
+    org.springframework.http.codec.json: info
+    org.springframework.jdbc.core: info
+    io.undertow.request: off
+    jp.com: info
+    jp.db: debug
+    jp.web: info
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:dbxml/*.xml
+datasource:
+  url: localhost:5432
+  dbname: test_erp2024
+  username: postgres
+  password: 1234
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${datasource.url}/${datasource.dbname}?currentSchema=public
+    username: ${datasource.username}
+    password: ${datasource.password}
+    hikari:
+      maximum-pool-size: 20
+      max-lifetime: 1800000
+      minimum-idle: 10
+      idle-timeout: 30000
+      connection-timeout: 60000
+      connection-test-query: SELECT 1
+      pool-name: company-dbpool
+  mail:
+    host: smtp.qq.com
+    username: 315360007@qq.com
+    password: sxnmavfwvrxdbice
+    from: 315360007@qq.com
+    default-encoding: utf-8
+    port: 465
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+  banner:
+    location: banner.t#t
+  main:
+    banner-mode: console
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  session:
+    store-type: jdbc
+  thymeleaf:
+    # 部署时打开缓存
+    cache: true
+    check-template-location: false
+    encoding: UTF-8
+    # 用非严格的 HTML
+    mode: HTML
+    prefix: classpath:/templates/
+    servlet:
+      content-type: text/html
+    suffix: .html
+    #lifecycle:
+    #timeout-per-shutdown-phase: 5s
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          cache-public: true
+          max-age: 30d
+          s-max-age: 30d
+      chain:
+        compressed: true
+        cache: true
+        enabled: true
+        strategy:
+          content:
+            enabled: true
+            paths: /Content/**

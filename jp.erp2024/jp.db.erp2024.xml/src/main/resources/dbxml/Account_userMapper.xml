@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.db.erp2024.mapper.Account_userMapper">
+    <resultMap id="BaseResultMap" type="jp.db.erp2024.pojo.Account_user">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="petname" property="petname" jdbcType="VARCHAR" />
+        <result column="realname" property="realname" jdbcType="VARCHAR" />
+        <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+        <result column="loginpassword" property="loginpassword" jdbcType="VARCHAR" />
+        <result column="logintime" property="logintime" jdbcType="TIMESTAMP" />
+        <result column="loginip" property="loginip" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="grouptext" property="grouptext" jdbcType="VARCHAR" />
+        <result column="roletext" property="roletext" jdbcType="VARCHAR" />
+        <result column="department" property="department" jdbcType="VARCHAR" />
+        <result column="hash" property="hash" jdbcType="VARCHAR" />
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+        <result column="createusername" property="createusername" jdbcType="VARCHAR" />
+        <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+        <result column="updateusername" property="updateusername" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        "id", "petname", "realname", "loginaccount", "loginpassword", "logintime", "loginip", "status", "phone", "email", "grouptext", "roletext", "department", "hash", "createtime", "createusername", "updatetime", "updateusername"
+	</sql>
+    
+    <insert id="insert" parameterType="jp.db.erp2024.pojo.Account_user" 
+       useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+    >
+        <selectKey keyProperty="id" order="AFTER" resultType="INTEGER">
+			select currval(pg_get_serial_sequence('account_user', 'id'));
+		</selectKey>
+        INSERT INTO "account_user"
+    	(
+    		"petname",
+    		"realname",
+    		"loginaccount",
+    		"loginpassword",
+    		"logintime",
+    		"loginip",
+    		"status",
+    		"phone",
+    		"email",
+    		"grouptext",
+    		"roletext",
+    		"department",
+    		"hash",
+    		"createtime",
+    		"createusername",
+    		"updatetime",
+    		"updateusername"
+    	) 
+    	VALUES
+    	(
+    		#{petname, jdbcType=VARCHAR},
+    		#{realname, jdbcType=VARCHAR},
+    		#{loginaccount, jdbcType=VARCHAR},
+    		#{loginpassword, jdbcType=VARCHAR},
+    		#{logintime, jdbcType=TIMESTAMP},
+    		#{loginip, jdbcType=VARCHAR},
+    		#{status, jdbcType=INTEGER},
+    		#{phone, jdbcType=VARCHAR},
+    		#{email, jdbcType=VARCHAR},
+    		#{grouptext, jdbcType=VARCHAR},
+    		#{roletext, jdbcType=VARCHAR},
+    		#{department, jdbcType=VARCHAR},
+    		#{hash, jdbcType=VARCHAR},
+    		#{createtime, jdbcType=TIMESTAMP},
+    		#{createusername, jdbcType=VARCHAR},
+    		#{updatetime, jdbcType=TIMESTAMP},
+    		#{updateusername, jdbcType=VARCHAR}
+    	)
+	</insert>
+    <delete id="delete" parameterType="jp.db.erp2024.pojo.Account_user">
+        DELETE FROM "account_user"
+        WHERE "id" = #{id, jdbcType=INTEGER}
+	</delete>
+    <delete id="deleteWhere" parameterType="java.lang.String">
+		DELETE FROM "account_user"
+        <choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</delete>
+    <update id="update" parameterType="jp.db.erp2024.pojo.Account_user">
+		UPDATE "account_user"
+        <trim prefix="SET" suffixOverrides=",">
+    		<if test="petname != null">"petname" = #{petname, jdbcType=VARCHAR},</if>
+    		<if test="realname != null">"realname" = #{realname, jdbcType=VARCHAR},</if>
+    		<if test="loginaccount != null">"loginaccount" = #{loginaccount, jdbcType=VARCHAR},</if>
+    		<if test="loginpassword != null">"loginpassword" = #{loginpassword, jdbcType=VARCHAR},</if>
+    		<if test="logintime != null">"logintime" = #{logintime, jdbcType=TIMESTAMP},</if>
+    		<if test="loginip != null">"loginip" = #{loginip, jdbcType=VARCHAR},</if>
+    		<if test="status != null">"status" = #{status, jdbcType=INTEGER},</if>
+    		<if test="phone != null">"phone" = #{phone, jdbcType=VARCHAR},</if>
+    		<if test="email != null">"email" = #{email, jdbcType=VARCHAR},</if>
+    		<if test="grouptext != null">"grouptext" = #{grouptext, jdbcType=VARCHAR},</if>
+    		<if test="roletext != null">"roletext" = #{roletext, jdbcType=VARCHAR},</if>
+    		<if test="department != null">"department" = #{department, jdbcType=VARCHAR},</if>
+    		<if test="hash != null">"hash" = #{hash, jdbcType=VARCHAR},</if>
+    		<if test="createtime != null">"createtime" = #{createtime, jdbcType=TIMESTAMP},</if>
+    		<if test="createusername != null">"createusername" = #{createusername, jdbcType=VARCHAR},</if>
+    		<if test="updatetime != null">"updatetime" = #{updatetime, jdbcType=TIMESTAMP},</if>
+    		<if test="updateusername != null">"updateusername" = #{updateusername, jdbcType=VARCHAR},</if>
+        </trim>
+        WHERE "id" = #{id, jdbcType=INTEGER}
+	</update>
+    <select id="selectOne" resultMap="BaseResultMap" parameterType="jp.db.erp2024.pojo.Account_user">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_user"
+		WHERE "id" = #{id, jdbcType=INTEGER}
+	</select>
+    <select id="selectAll" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_user"
+	</select>
+    <select id="selectWhere" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_user"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</select>
+    <select id="selectSort" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_user"
+		<if test="orderBy != null and orderBy != ''">
+		ORDER BY ${orderBy}
+		</if>
+	</select>
+    <select id="selectPage" resultMap="BaseResultMap">
+		SELECT
+		    <include refid="Base_Column_List" />
+		FROM "account_user"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+		<if test="orderBy != null and orderBy != ''">
+		ORDER BY ${orderBy}
+		</if>
+		LIMIT #{pagesize, jdbcType=INTEGER} OFFSET #{offset, jdbcType=INTEGER}
+	</select>
+    <select id="selectCount" resultType="java.lang.Integer">
+		SELECT COUNT(0)
+		FROM "account_user"
+		<choose>
+    		<when test="where != null and where != ''">
+    	WHERE ${where}
+    		</when>
+            <otherwise>
+        WHERE 1=2
+            </otherwise>
+        </choose>
+	</select>
+</mapper>

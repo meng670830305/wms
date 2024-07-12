@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/jp.com.filterexpression/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.com.filterexpression/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.com.helper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.com.helper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.com.module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.com.module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.datafilter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.datafilter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.mapper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.xml/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.db.erp2024.xml/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.web.erp2024.webapi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.web.erp2024.webapi/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jp.web.erp2024.website/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}">
+    <title>倉庫シェルフ情報リスト</title>
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: extend}" />
+    <script class="custom-Header" th:src="@{/Content/jquery.easyUIExtensions/datagrid-detailview.js}" language="javascript" type="text/javascript"></script>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <div id="toolbar" style="padding: 5px; display: none;">
+        <table style="height: 30px;">
+            <tr>
+                <td class="toolsbar-title">倉庫区域絞り込み条件：</td>
+                <td>
+                    <div id="filter"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="toolbar2" style="padding: 5px; display: none;">
+        <table style="height: 30px;">
+            <tr>
+                <td class="toolsbar-title">シェルフ絞り込み条件：</td>
+                <td>
+                    <div id="filter2"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="view"></table>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}"/>
+    <th:block th:insert="~{Shared/_Include :: raw}"/>
+    <script type="text/javascript" th:inline="javascript">
+        var cache = {
+            path: '/Repo/Barn',
+            view: $("#view"),
+        };
+
+        cache.view.datagrid({
+            url: `${cache.path}/BarnInfoListData`,
+            toolbar: "#toolbar",
+            filter: '#filter',
+            view: detailview,
+            rownumbers: true,
+            singleSelect: true,
+            striped: true,
+            pagination: true,
+            fit: true,
+            fitColumns: false,
+            pageSize: 20,
+            pageNumber: 1,
+            pageList: [10, 15, 20, 25, 30],
+            filterData: raw([[${T(jp.com.module.JsonManager).serialize(FILTER_DATA)}]]),
+            queryParams: {},
+            columns: [
+                [
+                    { field: '操作', title: '操作', width: 200, formatter: function(value, row, index){
+                            const actions = [];
+                            const state = row.[(${_STATE_})];
+                            if (state == [(${@ENUM_SERVICE.EStateName2Value('有効')})]) {
+                                actions.push(`<a class="btn btn-primary" href="javascript:void(0);" onclick="JQEUI.shelf.set(${row.[(${_ID_})]});"><i class="fa fa-edit"></i>設置シェルフ</a>`);
+                                actions.push(`<a class="btn btn-success" href="javascript:void(0);" onclick="JQEUI.code.qrs(${row.[(${_ID_})]}, '${row.[(${_WAREHOUSE_NAME_})]}', '${row.[(${_NAME_})]}');"><i class="fa fa-qrcode"></i>QRコード</a>`);
+                            }
+                            return actions.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                        }
+                    },
+                    {
+                        field: '[(${_WAREHOUSE_NAME_})]',
+                        title: '倉庫名前',
+                        width: 150,
+                        headerContextMenu: [
+                            {
+                                type: "searchbox",
+                                onChange: function (value) {
+                                    this.datagrid("filterLoad", {'Field': '[(${_WAREHOUSE_NAME_})]', 'Value': value});
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_WAREHOUSE_SORT_})]',
+                        title: '倉庫順番',
+                        hidden: true,
+                        width: 110
+                    },
+                    {
+                        field: '[(${_NAME_})]',
+                        title: '倉庫区域名前',
+                        width: 150,
+                        headerContextMenu: [
+                            {
+                                type: "searchbox",
+                                onChange: function (value) {
+                                    this.datagrid("filterLoad", {'Field': '[(${_NAME_})]', 'Value': value});
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_DESCRIPTION_})]',
+                        title: '倉庫区域ノート',
+                        width: 300,
+                        headerContextMenu: [{
+                            type: "searchbox",
+                            onChange: function (value) {
+                                this.datagrid("filterLoad", {'Field': '[(${_DESCRIPTION_})]', 'Value': value});
+                            }
+                        }]
+                    },
+                    {
+                        field: '[(${_SORT_})]',
+                        title: '倉庫区域順番',
+                        width: 110
+                    },
+                    {
+                        field: '[(${_TYPE_})]', title: '倉庫タイプ', width: 120, formatter: raw([[${T(jp.com.module.EasyUI).enumFormatter(E_BARNTYPE)}]]),
+                        headerContextMenu: [
+                            {
+                                type: "combobox",
+                                data: raw([[${T(jp.com.module.EasyUI).enumFilterData(E_BARNTYPE)}]]),
+                                onChange: function (value) {
+                                    if (value == -1) value = null;
+                                    this.datagrid("filterLoad", {'Field': '[(${_TYPE_})]', 'Value': value});
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_STATE_})]', title: '状態', width: 80, formatter: raw([[${T(jp.com.module.EasyUI).enumFormatter(E_STATE)}]]),
+                        headerContextMenu: [
+                            {
+                                type: "combobox",
+                                data: raw([[${T(jp.com.module.EasyUI).enumFilterData(E_STATE)}]]),
+                                onChange: function (value) {
+                                    if (value == -1) value = null;
+                                    this.datagrid("filterLoad", {'Field': '[(${_STATE_})]', 'Value': value});
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        field: '[(${_CREATEUSERNAME_})]',
+                        title: '創造人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_CREATETIME_})]',
+                        title: '創造時間',
+                        width: 180,
+                        formatter:JQEUI.grid.datetimeFormatter,
+                        sortable: true
+                    },
+                    {
+                        field: '[(${_UPDATEUSERNAME_})]',
+                        title: '更新人',
+                        width: 120
+                    },
+                    {
+                        field: '[(${_UPDATETIME_})]',
+                        title: '更新時間',
+                        width: 180,
+                        formatter:JQEUI.grid.datetimeFormatter,
+                        sortable: true
+                    }
+                ]
+            ],
+            onLoadSuccess: function (data) {
+                /*JQEUI.megerCell($("div.datagrid-view2 > div.datagrid-body table.datagrid-btable")[0], 0, 3);*/
+            },
+            detailFormatter: function (index, row) {
+                return `<table class="ddv"></table>`;
+            },
+            onExpandRow: function (index, row) {
+                var ddv = $(this).datagrid('getRowDetail', index).find(`table.ddv`);
+                ddv.datagrid({
+                    offset: { width: 0, height: 0 },
+                    height:'auto',
+                    toolbar: "#toolbar2",
+                    filter: '#filter2',
+                    rownumbers: true,
+                    singleSelect: true,
+                    striped: true,
+                    pagination: true,
+                    fit: false,
+                    fitColumns: false,
+                    pageSize: 20,
+                    pageNumber: 1,
+                    pageList: [10, 15, 20, 25, 30],
+                    url: `${cache.path}/BarnShelfListData/${row['[(${_ID_})]']}`,
+                    filterData: raw([[${T(jp.com.module.JsonManager).serialize(FILTER_DATA2)}]]),
+                    queryParams: { '[(${_BARN_ID_})]': row['[(${_ID_})]'] },
+                    columns: [
+                        [
+                            { field: '操作', title: '操作', width: 100, formatter:function(value, row, index){
+                                    const actions = [];
+                                    actions.push(`<a class="btn btn-success" href="javascript:void(0);" onclick="JQEUI.code.qr(${row.[(${_ID_})]});"><i class="fa fa-qrcode"></i>QRコード</a>&nbsp;&nbsp;`);
+                                    return actions.join('');
+                                }
+                            },
+                            {field: '[(${_SHELF_CODE_})]', title: 'シェルフ情報',  width: 350
+                                , formatter: function (value, row, index) {
+                                    const htmls = [];
+                                    if (row) {
+                                        const skuCode = row.[(${_SHELF_CODE_})];
+                                        const sku = JSON.parse(skuCode);
+                                        for (key in sku) {
+                                            htmls.push(`<span>${key}</span> : <span>${sku[key]}</span>`);
+                                        }
+                                    }
+                                    return htmls.join('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                                }
+                                , headerContextMenu: [{
+                                    type: "searchbox",
+                                    onChange: function (value) {
+                                        this.datagrid("filterLoad", {'Field': '[(${_SHELF_CODE_})]', 'Value': value});
+                                    }
+                                }]
+                            },
+                            {field: '[(${_SORT_})]', title: 'シェルフ順番', width: 100},
+                            {field: '[(${_COUNT_})]', title: 'シェルフロード', width: 100},
+                            {field: '[(${_STATE_})]', title: 'シェルフ状態', width: 100, formatter: raw([[${T(jp.com.module.EasyUI).enumFormatter(E_STATE)}]]),
+                                headerContextMenu: [
+                                    {
+                                        type: "combobox",
+                                        data: raw([[${T(jp.com.module.EasyUI).enumFilterData(E_STATE)}]]),
+                                        onChange: function (value) {
+                                            if (value == -1) value = null;
+                                            this.datagrid("filterLoad", { 'Field': '[(${_STATE_})]', 'Value': value });
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    ],
+                    onResize: function () {
+                        $('#view').datagrid('fixDetailRowHeight', index);
+                    },
+                    onLoadSuccess: function () {
+                        setTimeout(function () {
+                            $('#view').datagrid('fixDetailRowHeight', index);
+                        }, 0);
+                    }
+                });
+                $('#view').datagrid('fixDetailRowHeight', index);
+            },
+        });
+
+        JQEUI.extend({
+            shelf: {
+                set: function (value) {
+                    JQEUI.dialog({
+                        title: "設置シェルフ",
+                        width: 800,
+                        height: 700,
+                        resizable: true,
+                        href: `${cache.path}/BarnShelfSet/${value}`,
+                        iframe: true,
+                        buttons: [{
+                            text: '設定',
+                            iconCls: 'icon-ok',
+                            handler: function (dialog, iframe) {
+                                iframe.contentWindow.save(function () {
+                                    cache.view.datagrid('reload');
+                                    dialog.dialog('close');
+                                });
+                            }
+                        }, {
+                            text: 'クローズ',
+                            iconCls: 'icon-close',
+                            handler: function (dialog) {
+                                dialog.dialog('close');
+                            }
+                        }]
+                    });
+                    return false;
+                },
+            }
+        });
+    </script>
+</th:block>
+</html>

@@ -1,0 +1,31 @@
+﻿/* start reset.css */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre, a, code, em, img, s, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; }
+html { color: #333; background: #FFF; font-size: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; text-size-adjust: 100%; }
+table { border-collapse: collapse; border-spacing: 0; }
+caption, th { text-align: left; }
+ul, dl, dd, dt, li, ol { list-style: none; }
+sup { vertical-align: text-top; }
+sub { vertical-align: text-bottom; }
+sup, sub { font-size: 100%; }
+fieldset, img { border: 0; }
+h1 { font-size: 24px; font-weight: bold; line-height:2.4;}
+h2 { font-size: 20px; font-weight: bold;line-height:2;}
+h3 { font-size: 18px; font-weight: normal;line-height:1.3;}
+h4 { font-size: 16px; font-weight: normal;line-height:1.4;}
+h5 { font-size: 14px; font-weight: normal;line-height:1.5;}
+h6 { font-size: 12px; font-weight: normal;line-height:1.2;}
+input, button, textarea, select, option { font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; }
+input, button, textarea, select { *font-size: 100%; }
+a { text-decoration: none; cursor: pointer; }
+a:link, a:visited { text-decoration: none; }
+a:active, a:hover { outline: 0; }
+body { line-height: 1.5; }
+body, button, input, select, textarea { font: 12px/1.5 '微软雅黑','Lucida Grande',Arial,Calibri; color: #333; }
+/*兼容性 chrome*/
+input:focus, textarea:focus, select:focus { outline: none; /*去掉chrome的默认蓝色边框。css*/ background-color: #fff; }
+textarea { resize: none; /*使chrome中textarea不可调节大小*/ }
+.clearfix { *zoom: 1; }
+.clearfix:after { display: block; clear: both; height: 0; overflow: hidden; visibility: hidden; content: "."; }
+hr { border-bottom: solid 1px #ddd; width: 90%; margin: auto auto; }
+img { vertical-align:middle;border-style:none; border:none;}
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }

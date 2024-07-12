@@ -1,0 +1,16 @@
+jp\db\erp2024\datafilter\View_account_usergroupassignDataFilter.class
+jp\db\erp2024\datafilter\Account_roleDataFilter.class
+jp\db\erp2024\datafilter\Account_userDataFilter.class
+jp\db\erp2024\datafilter\Barn_infoDataFilter.class
+jp\db\erp2024\datafilter\Account_grouppermissionassignDataFilter.class
+jp\db\erp2024\datafilter\Barn_optionDataFilter.class
+jp\db\erp2024\datafilter\Account_groupDataFilter.class
+jp\db\erp2024\datafilter\View_account_userroleassignDataFilter.class
+jp\db\erp2024\datafilter\Account_permissionDataFilter.class
+jp\db\erp2024\datafilter\Account_usergroupassignDataFilter.class
+jp\db\erp2024\datafilter\Warehouse_infoDataFilter.class
+jp\db\erp2024\datafilter\Barn_shelfDataFilter.class
+jp\db\erp2024\datafilter\Account_rolepermissionassignDataFilter.class
+jp\db\erp2024\datafilter\Account_userpermissionassignDataFilter.class
+jp\db\erp2024\datafilter\Account_userroleassignDataFilter.class
+jp\db\erp2024\datafilter\View_barn_warehouse_infoDataFilter.class

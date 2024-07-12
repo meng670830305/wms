@@ -1,0 +1,9 @@
+﻿.JQEUI-task-dialog { position: relative; height: 100%; z-index:99999; background-color:#fff;  }
+.JQEUI-task-dialog-n { position: fixed; border:solid 1px #ddd;top:50%;left:50%;transform:translateX(-50%) translateY(-50%);width:400px;height:250px;border-radius: 3px;}
+.JQEUI-task-tip { position: relative; padding: 10px 5px; font-weight: bold; }
+.JQEUI-task-message { overflow: auto; border-top: solid 1px #ddd; line-height: 24px; position: absolute; top: 38px; left: 0; bottom: 0; right: 0; padding: 0 5px; }
+.JQEUI-task-toolbar { position: absolute; top: 10px; right: 10px; }
+.JQEUI-task-close { width: 12px; height: 12px; display: block; text-decoration: none;font-size:12px; }
+.JQEUI-task-close:after { content: '✖'; display: block; color: #999; background-image: none !important; }
+.JQEUI-task-close:hover:after { color: #f00; }
+.JQEUI-task-mask {position: fixed;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,0.25);z-index:99998; }

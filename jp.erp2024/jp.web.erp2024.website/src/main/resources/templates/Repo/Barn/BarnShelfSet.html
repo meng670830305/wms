@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: select2}" />
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: toolstip}" />
+    <th:block class="custom-Header" th:insert="~{Shared/_Include :: calc}" />
+</head>
+<body>
+<th:block layout:fragment="Body" th:with="upstate=${@ENUM_SERVICE.EStateName2Value('有効')}">
+    <table class="form">
+        <tr>
+            <td class="form-label"><sup>*</sup>倉庫名前：</td>
+            <td class="form-editor">
+                [(${HTML_HELPER.Select(_WAREHOUSE_ID_, _WAREHOUSE_ID_)})]
+            </td>
+        </tr>
+        <tr>
+            <td class="form-label"><sup>*</sup>倉庫区域名前：</td>
+            <td class="form-editor">
+                [(${HTML_HELPER.Select(_BARN_ID_, _BARN_ID_)})]
+            </td>
+        </tr>
+        <tr class="options" th:each="ITEM : ${LIST}" th:with="name=${ITEM.name}">
+            <td class="form-label">[(${name})]：</td>
+            <td class="form-editor" >
+                <th:block th:each="VALUE: ${ITEM.values}" th:with="value=${VALUE.value}, state=${VALUE.state}">
+                    <label style="margin-left: 20px;" >[(${value})]<input type="checkbox" th:name="${name}" th:title="${value}" th:value="${value}" th:checked="${state eq upstate}"></label>
+                </th:block>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+    <table id="gridTable" class="datagrid-btable" style="margin-left: 40px;" cellspacing="0" cellpadding="0" border="0">
+        <tr class="datagrid-row">
+            <th style="min-width: 100px;">シェルフＩＤ</th>
+            <th style="min-width: 60px;">順番</th>
+            <th style="min-width: 80px;" th:each="SKU_NAME: ${SKU_NAME_LIST}" th:text="${SKU_NAME}"></th>
+            <th style="min-width: 60px;">ロード</th>
+            <th style="min-width: 80px;">状態</th>
+        </tr>
+        <tr class="datagrid-row" th:each="SKU, rowStat: ${SKU_LIST}">
+            <td th:text="${SKU.id}"></td>
+            <td th:text="${rowStat.count}"></td>
+            <td th:each="value, colStat: ${SKU.values}" th:text="${value}" th:name="${SKU_NAME_LIST[colStat.index]}"></td>
+            <td>
+                <input type="number" style="width: 30px;" min="0" max="99" step="1" th:value="${SKU.count}" oninput="if(parseInt(this.value)>parseInt(this.max))this.value=this.max;if(parseInt(this.value)<parseInt(this.min))this.value=this.min;"/>
+            </td>
+            <td>
+                <input type="checkbox" th:id="${_STATE_}" th:name="${_STATE_}" th:col="${_STATE_}" th:checked="${SKU.state eq upstate}"/>
+                <span th:if="${SKU.different}"><i class="fa fa-info-circle"></i> <kbd>違う</kbd></span>
+            </td>
+        </tr>
+    </table>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            path: '/Repo/Barn',
+            form: $(".form"),
+            $wareHouse: $('#[(${_WAREHOUSE_ID_})]'),
+            $barn: $('#[(${_BARN_ID_})]'),
+            $options: $("tr.options"),
+            $view: $("#gridTable"),
+            $states: $('#gridTable input:checkbox')
+        };
+
+        cache.$wareHouse.combobox({
+            required: true,
+            editable: false,
+            readonly: true,
+            value: "[(${MODEL.warehouse_id})]",
+            valueField: "[(${_ID_})]",
+            textField: "[(${_NAME_})]",
+            Prompt: "倉庫名前",
+            url: `/Repo/WareHouse/GetWareHouseAll`
+        });
+
+        cache.$barn.combobox({
+            required: true,
+            editable: false,
+            readonly: true,
+            value: "[(${MODEL.id})]",
+            valueField: "[(${_ID_})]",
+            textField: "[(${_NAME_})]",
+            Prompt: "倉庫区域名",
+            url: `/Repo/Barn/GetBarnInfoList/[(${MODEL.warehouse_id})]`
+        });
+
+        cache.form.find(':checkbox').on('click', function (data) {
+            const valuesList = [];
+            cache.$options.each(function (i, dom) {
+                const values = [];
+                $(dom).find(':checked').each(function (j, chk) {
+                    const $chk = $(this);
+                    const name = $chk.attr('name');
+                    const value = $chk.attr('title');
+                    values.push(value);
+                });
+                if (values.length > 0) {
+                    valuesList.push(values);
+                }
+            });
+            const allCount = getAllCount(valuesList);
+            const skuValuesList = [];
+            for (let i = 0; i < allCount; i++) {
+                skuValuesList.push([]);
+            }
+            const rowCount = valuesList.length;
+            let startCount, endCount, valuesCount, index;
+            let value, values;
+            for (let i = 0; i < rowCount; i++) {
+                values = valuesList[i];
+                valuesCount = values.length;
+                startCount = getStartCount(valuesList, i);
+                endCount = getEndCount(valuesList, i);
+                index = 0;
+                for (let j = 0; j < endCount; j++) {
+                    for (let m = 0; m < valuesCount; m++) {
+                        value = values[m];
+                        for (let n = 0; n < startCount; n++) {
+                            skuValuesList[index++].push(value);
+                        }
+                    }
+                }
+            }
+            setStateUnCheck();
+            $(skuValuesList).each(function (index, skuValues) {
+                setStateCheck($(skuValues));
+            });
+        });
+
+        function setStateUnCheck() {
+            cache.$states.each(function (i, state) {
+                $(state).prop('checked', false);
+            });
+        }
+
+        function setStateCheck($skuValues) {
+            cache.$states.each(function (i, state) {
+                const $state = $(state);
+                $state.closest('tr').each(function (j, tr) {
+                    const selectors = [];
+                    $skuValues.each(function (m, skuValue) {
+                        selectors.push(`td:contains('${skuValue}')`);
+                    });
+                    if ($(tr).find('td:gt(1)').filter(selectors.join(',')).length == [[${#lists.size(LIST)}]]) {
+                        $state.prop('checked', true);
+                    }
+                });
+            });
+        }
+
+        function getData() {
+            const names = [], values = [];
+            const $table = cache.$view;
+            $table.find("tr:first th").each(function (index, th) {
+                names[index] = $(th).text();
+            });
+            $table.find("tr:gt(0)").each(function (i, tr) {
+                const tds = [];
+                $(tr).find("td").each(function (j, td) {
+                    const $td = $(td);
+                    const $text = $td.find("input[type=number]");
+                    if ($text.length == 1) {
+                        tds[j] = $text.val();
+                    } else {
+                        tds[j] = $td.text();
+                    }
+                });
+                let state = [(${@ENUM_SERVICE.EStateName2Value('無効')})];
+                if ($(cache.$states.get(i)).is(":checked")) {
+                    state = [(${@ENUM_SERVICE.EStateName2Value('有効')})];
+                }
+                tds[tds.length - 1] = state;
+                values[i] = tds;
+            });
+            return { name: JSON.stringify(names), value: JSON.stringify(values)};
+        }
+
+        function save(callBack) {
+            let data = getData();
+            if (data.name.length > 0 && data.value.length > 0) {
+                JQEUI.api(`${cache.path}/BarnShelfSetSave`, $.extend({ barnId: [[${MODEL.id}]] }, data), callBack);
+            } else {
+                JQEUI.warn('入力を確認してください！');
+            }
+        }
+    </script>
+</th:block>
+</html>

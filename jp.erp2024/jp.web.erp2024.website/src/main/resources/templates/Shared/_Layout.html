@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head th:fragment="Head(Title, Header)">
+        <title th:replace="${Title}">EasyUI Demo</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta http-equiv="imagetoolbar" content="no">
+        <link th:href="@{/favicon.ico}" rel="shortcut icon" type="image/x-icon" />
+        <link th:href="@{/favicon.ico}" rel="icon" type="image/x-icon" />
+
+        <link th:href="@{/Content/JQEUI/reset.css}" rel="stylesheet" />
+        <link href="/Content/jquery.easyUI/1.5.1/themes/metro/easyui.css" rel="stylesheet" type="text/css" id="themes" />
+        <link th:href="@{/Content/jquery.easyUI/1.5.1/themes/icon.css}" rel="stylesheet" />
+        <link th:href="@{/Content/JQEUI.Behind/form.css}" rel="stylesheet" />
+        <link th:href="@{/Content/JQEUI.Behind/fix.css}" rel="stylesheet" />
+        <link th:href="@{/Content/JQEUI.Behind/JQEUI.Behind.css}" rel="stylesheet" />
+
+        <script th:src="@{/Content/jquery/1.x/jquery-1.8.2.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/jquery.plugins/jquery.cookie.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/jquery.plugins/jquery.media.js}" language="javascript" type="text/javascript"></script>
+
+        <script th:src="@{/Content/jquery.easyUI/1.5.1/jquery.easyui.min.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/jquery.easyUI/1.5.1/locale/easyui-lang-jp.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/jquery.easyUI/1.5.1/jquery.easyui.extensions.js}" language="javascript" type="text/javascript"></script>
+
+        <script th:src="@{/Content/JQEUI/JQEUI.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/JQEUI.Behind/JQEUI.Behind.js}" language="javascript" type="text/javascript"></script>
+        <script th:src="@{/Content/JQEUI.Behind/fix.js}" language="javascript" type="text/javascript"></script>
+
+        <th:block th:replace="${Header}" />
+    </head>
+
+    <!--BODY START-->
+    <th:block layout:fragment="Body" />
+    <!--BODY END-->
+    <!--Footer START-->
+    <th:block layout:fragment="Scripts"/>
+    <!--Footer END-->
+
+</html>

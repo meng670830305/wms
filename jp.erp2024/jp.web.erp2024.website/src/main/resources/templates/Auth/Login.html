@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>[(${WEB_SITE_NAME})]</title>
+    <meta name="renderer" content="webkit">
+    <script type="text/javascript">
+        if (top != self) {
+            top.window.location.replace(self.window.location.href);
+        }
+    </script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        body {
+            background-color: #F0F7FF;
+        }
+
+        div {
+            display: block;
+            position: relative;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            background-color: #EEFAFF;
+        }
+
+        .warper {
+            top: 80px;
+            width: 670px;
+            margin: 0 auto;
+        }
+
+        .header {
+            height: 50px;
+        }
+
+        .darkBanner {
+            height: 48px;
+            background-color: #424242;
+        }
+
+        .darkBanner span {
+            display: block;
+            float: left;
+            position: relative;
+            left: -17px;
+            z-index: 2;
+            width: 17px;
+            height: 57px;
+            background: url(/Images/darkBanner.gif) no-repeat 0 bottom;
+        }
+
+        .darkBanner h1 {
+            margin: 0;
+            padding: 0;
+            padding-top: 15px;
+            padding-left: 30px;
+            font-size: 20px;
+            line-height: 20px;
+            color: #fff;
+        }
+
+        .content {
+            border-top-style: none;
+            background-color: #fff;
+            border: solid 1px #E6EFF8;
+        }
+
+        .formCell {
+            display: block;
+            width: 430px;
+            padding: 40px 0 40px 0;
+            background-color: #fff;
+        }
+
+        .formCell p {
+            display: block;
+            margin: 0;
+            padding: 5px 0 5px 0;
+        }
+
+        .formCell label {
+            display: block;
+            float: left;
+            width: 100px;
+            margin: 0;
+            padding: 5px 0 5px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .formCell span {
+            display: block;
+            margin: 0;
+            margin-left: 100px;
+            padding: 0;
+            text-align: left;
+        }
+
+        .formCell .input {
+            width: 280px;
+            height: 20px;
+            padding: 3px;
+            font-size: 16px;
+            _width: 237px;
+            border: 1px solid #ccc;
+        }
+
+        .formCell .input:hover {
+            border: 1px solid #009AD9;
+        }
+
+        .formCell .input:focus {
+            background-color: #F5FBFF;
+            border: 1px solid #009AD9;
+        }
+
+        .formCell .codeInput {
+            width: 103px;
+        }
+
+        .formCell .formCode {
+            display: block;
+            width: 111px;
+            height: 42px;
+            cursor: pointer;
+        }
+
+        .formCell input.error {
+            border: 1px solid #f00;
+        }
+
+        .formCell input::-moz-placeholder {
+            font-size: 12px;
+            color: #d0d0d0;
+        }
+
+        .formCell input:-ms-input-placeholder {
+            font-size: 12px;
+            color: #d0d0d0;
+        }
+
+        .formCell ::-webkit-input-placeholder {
+            font-size: 12px;
+            color: #d0d0d0;
+        }
+
+        .formCell .error,
+        .formCell .error:hover,
+        .formCell .error:focus {
+            border: 1px solid #f00;
+        }
+
+        .formCell .msg {
+            width: 85%;
+            margin: 0 auto;
+            padding: 6px 0 6px 0;
+            text-align: center;
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
+        .btnCell {
+            padding: 30px 35px 10px 0;
+            text-align: right;
+        }
+
+        .btn {
+            margin: 0;
+            padding: 5px 20px;
+            text-align: center;
+            color: #fff;
+            background-color: #4974A4;
+            cursor: pointer;
+            border: 1px solid #416892;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background-color: #668FBB;
+        }
+
+        .btn-green {
+            background-color: #009C03;
+            border: 1px solid #008303;
+            color: white;
+        }
+
+        .btn-green:hover,
+        .btn-green:focus {
+            background-color: #008303;
+            border: 1px solid #008303;
+        }
+
+        .disabled,
+        .disabled:hover,
+        .disabled:focus {
+            color: #999;
+            background-color: #f0f0f0;
+            border: 1px solid #999;
+        }
+
+        .tip {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 220px;
+            height: 100%;
+            padding: 0 10px 0 10px;
+            background-color: #E6EFF8;
+        }
+
+        .tip p {
+            padding-top: 50px;
+            font-size: 12px;
+            line-height: 24px;
+        }
+
+        .copyright {
+            margin: 0 auto;
+            padding-top: 40px;
+            text-align: center;
+            color: #d0d0d0;
+        }
+
+        .copyright a {
+            color: #d0d0d0;
+        }
+
+        .copyright a:hover {
+            color: #B6B6B6;
+        }
+    </style>
+</head>
+<body>
+<div class="warper">
+    <div class="header"></div>
+    <div class="darkBanner">
+        <span></span>
+        <h1>[(${WEB_SITE_NAME})]</h1>
+    </div>
+    <div class="content">
+        <div class="formCell">
+            <form th:action="@{/Auth/Login}" method="post" id="login">
+                <p>
+                    <label>登录账户:</label><span><input class="input" id="LoginAccount" maxlength="100" name="LoginAccount" placeholder="登录账户" type="text" value="davidkingbajie@gmail.com" /></span>
+                </p>
+                <p>
+                    <label>登录密码:</label><span><input class="input" id="LoginPassword" maxlength="50" name="LoginPassword" placeholder="登录密码" type="password" value="123456789" /></span>
+                </p>
+                <p>
+                    <label>访问IP:</label><span style="margin-top: 5px" th:text="${IP_ADDRESS}"></span>
+                </p>
+                <th:block th:unless="${MESSAGE eq ''}">
+                    <div class="msg" id="msgBlock" th:text="${MESSAGE}">
+                    </div>
+                </th:block>
+                <th:block th:if="${MESSAGE eq ''}">
+                    <div class="msg" id="msgBlock" style="display: none;">
+                    </div>
+                </th:block>
+                <div class="btnCell">
+                    <input value="登 录" class="btn" type="submit" id="logOnButton" />
+                </div>
+            </form>
+        </div>
+        <div class="tip">
+            <p>
+                请从左侧输入登录账号和密码登录。<br />
+                如果遇到系统问题，请联系网络管理员。<br />
+                如果没有账号，请联系站点管理员。<br />
+                ...
+            </p>
+        </div>
+    </div>
+    <div class="copyright">CopyRight [(${WEB_SITE_NAME})]© </div>
+</div>
+<script src="/Content/jquery/1.x/jquery-1.8.2.min.js"></script>
+<script src="/Content/jquery.validate/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    var cache = {
+        email: $("#LoginAccount").focus(),
+        logOnButton: $("#logOnButton"),
+        mesage: $("#msgBlock")
+    };
+    $("#login").validate({
+        rules: {
+            "LoginAccount": { required: true },
+            "LoginPassword": { required: true }
+        },
+        messages: {
+            "LoginAccount": { required: "请输入登录账户！" },
+            "LoginPassword": { required: "请输入登录密码！" }
+        },
+        errorPlacement: function (error, element) {
+            cache.mesage.show().html("").append(error.text());
+        },
+        submitHandler: function (form) {
+            cache.logOnButton.val("正在登录...").attr("disabled", "disabled").addClass("disabled");
+            form.submit();
+        }
+    });
+</script>
+</body>
+</html>

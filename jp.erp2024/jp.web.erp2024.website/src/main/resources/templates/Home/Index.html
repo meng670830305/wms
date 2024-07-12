@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title th:text="${WEB_SITE_NAME}"></title>
+    <style class="custom-Header">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <script class="custom-Header" th:src="@{/Content/JQEUI/JQEUI.Hock.js}" language="javascript" type="text/javascript"></script>
+    <script class="custom-Header" th:src="@{/Content/jquery.easyUI/extend/tree_search.js}" language="javascript" type="text/javascript"></script>
+</head>
+<body class="easyui-layout">
+    <th:block layout:fragment="Body">
+        <!--左边菜单-->
+        <div data-options="region:'west',title:'菜单目录',split:true" style="width: 200px;position:relative;">
+            <input type="text" id="search" autocomplete="off" data-options="prompt: '菜单搜索'" style="height: 20px; width: 97%; ime-mode: active" class="easyui-validatebox" />
+            <ul id="leftMenu"></ul>
+        </div>
+        <div data-options="region:'center',split:true">
+            <div id="tab" class="easyui-tabs">
+                <div data-options="title:'首页',iconCls:'icon-home',closable:false,iniframe:true,href:'/Home/Welcome/',fit:true" style="overflow: hidden;">
+                </div>
+            </div>
+        </div>
+        <!--底-->
+        <div data-options="region:'south',title:'',split:false" style="height: 33px; overflow: hidden;">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 200px; text-align: left;"><span style="line-height: 25px;">版本：</span></td>
+                    <td style="width: auto; text-align: center;"><span style="line-height: 25px;">版权：[(${WEB_SITE_NAME})]</span></td>
+                    <td style="width: 306px; text-align: left;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-logout'" href="/Auth/Logout" id="exit" name="exit" title="注销登陆"></a>
+                                    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" id="updatePwd" name="updatePwd" title="修改密码"></a>
+                                    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-zoom'" id="btnFullScreen" name="btnFullScreen" title="全屏模式切换"></a>
+                                </td>
+                                <td>
+                                    <div class="datagrid-btn-separator"></div>
+                                    <span style="line-height: 25px;">页面主题：</span><select id="themeSelector"></select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </th:block>
+    <th:block layout:fragment="Scripts">
+        <th:block th:insert="~{Shared/_Include :: cors}" />
+        <script type="text/javascript">
+            $("#themeSelector").combobox({
+                width: 140, editable: false, data: $.easyui.theme.themes,
+                value: $.easyui.theme.get(),
+                onSelect: function (record) {
+                    $.easyui.theme.change(record.value);
+                }
+            });
+
+            window.tabPages = $('#tab').tabs({
+                border: false,
+                fit: true,
+                enableConextMenu: true,
+                lineHeight: 0
+            });
+
+            $("#leftMenu").tree({
+                method: "post",
+                lines: true,
+                url: "/Home/GetMenuData",
+                smooth: true,
+                checkbox: false,
+                toggleOnClick: true,
+                onClick: function (node) {
+                    JQEUI.tabShow(node.text, node.attributes, node.iconCls);
+                },
+                onCollapse: function (node) {
+                    if (node.id == "00000000-0000-0000-0000-000000000000") {
+                        $(this).tree("collapseAll");
+                    }
+                }
+            });
+
+            $("#btnFullScreen").click(function () {
+                if (JQEUI.fullScreen.supports) {
+                    if (JQEUI.fullScreen.isFullScreen()) {
+                        JQEUI.fullScreen.cancel();
+                    } else {
+                        JQEUI.fullScreen.request();
+                    }
+                } else {
+                    JQEUI.error("当前浏览器不支持全屏 API，请更换至最新的 Chrome/Firefox/Safari 浏览器或通过 F11 快捷键进行操作。");
+                }
+            });
+
+            $('#updatePwd').on("click", function () {
+                JQEUI.dialog({
+                    title: "修改密码",
+                    width: 500,
+                    height: 300,
+                    href: "/Auth/ChangePassword",
+                    iframe: true,
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: function (dialog, iframe) {
+                            iframe.contentWindow.save(function (success) {
+                                if (success) {
+                                    top.window.location.replace("/Auth/Logout");
+                                }
+                            });
+                        }
+                    }]
+                });
+            });
+            $(function () {
+                $("#search").on("keyup",function() {
+                    $("#leftMenu").tree("search", $(this).val());
+                    if ($(this).val() === "" || null == $(this).val()) {
+                        $('#left_menu').tree("expandAll");
+                    }
+                    return true;
+                });
+            });
+        </script>
+    </th:block>
+</body>
+
+</html>
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Shared/_Layout :: Head(~{this :: title}, ~{this :: .custom-Header})}" >
+    <title></title>
+    <style class="custom-Header"></style>
+</head>
+<body>
+<th:block layout:fragment="Body">
+    <form id="form">
+        <table class="form">
+            <tr>
+                <td class="form-label"><sup>*</sup>登陆名：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_LOGINACCOUNT_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "maxlength=50" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>昵称：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_PETNAME_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "maxlength=50" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>真实姓名：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_REALNAME_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "maxlength=50" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>密码：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Password(_LOGINPASSWORD_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "type=password", "validType=minLength[8]" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>密码：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.Password(_LOGINPASSWORD_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "type=password", "validType=equalTo['#" + _LOGINPASSWORD_ + "']", "invalidMessage=两次输入密码不匹配" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>电话：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_PHONE_, "", "style=width:200px", "class=easyui-validatebox", "validtype=phone", "required=true" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>邮箱：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_EMAIL_, "", "style=width:200px", "class=easyui-validatebox", "required=true", "validtype=email" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label"><sup>*</sup>部门：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.TextBox(_DEPARTMENT_, "", "style=width:200px", "class=easyui-validatebox", "required=true" )})]
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">ユーザー状態：</td>
+                <td class="form-editor">
+                    [(${HTML_HELPER.RadioButton(_STATUS_ + "0", _STATUS_, "0", true)})]<label th:for="${_STATUS_ + '0'}">正常</label>
+                    [(${HTML_HELPER.RadioButton(_STATUS_ + "1", _STATUS_, "1", false)})]<label th:for="${_STATUS_ + '1'}">冻结</label>
+                    [(${HTML_HELPER.RadioButton(_STATUS_ + "2", _STATUS_, "2", false)})]<label th:for="${_STATUS_ + '2'}">注销</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</th:block>
+</body>
+<th:block layout:fragment="Scripts">
+    <th:block th:insert="~{Shared/_Include :: cors}" />
+    <script type="text/javascript">
+        var cache = {
+            form: $("#form")
+        };
+        $.extend($.fn.validatebox.defaults.rules, {
+            equalTo: {
+                validator: function (value, param) {
+                    return $(param[0]).val() == value;
+                },
+                message: '字段不匹配'
+            },
+            isNumber: {
+                validator: function (value, param) {
+                    var reg = new RegExp("^[0-9]*$");
+                    return reg.test(value);
+                },
+                message: '只能填写数字.'
+                }
+            }
+        );
+        function save(callBack) {
+            var isValid = cache.form.form('validate');
+            if (!isValid) {
+                JQEUI.warn("入力を確認してください！");
+                return;
+            }
+            var data = cache.form.serializeObject();
+            JQEUI.api("/Account/User/UserAddSave", data, callBack);
+        }
+    </script>
+</th:block>
+</html>

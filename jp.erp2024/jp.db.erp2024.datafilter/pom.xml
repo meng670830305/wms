@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>jp_erp2024</artifactId>
+        <groupId>jp.erp2024</groupId>
+        <version>${system.version}</version>
+    </parent>
+    <groupId>jp.db</groupId>
+    <artifactId>jp.db.erp2024.datafilter</artifactId>
+    <version>${jp.db.erp2024.datafilter.version}</version>
+    <name>jp.db.erp2024.datafilter</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>jp.com</groupId>
+            <artifactId>jp.com.filterexpression</artifactId>
+            <version>${jp.com.filterexpression.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jp.db</groupId>
+            <artifactId>jp.db.erp2024.pojo</artifactId>
+            <version>${jp.db.erp2024.pojo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jp.db</groupId>
+            <artifactId>jp.db.erp2024.mapper</artifactId>
+            <version>${jp.db.erp2024.mapper.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
